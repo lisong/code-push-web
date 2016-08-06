@@ -5,23 +5,21 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import * as usersActions from '../actions/usersActions';
 import * as routesActions from '../actions/routesActions';
-import Home from '../components/Home';
-import HeaderContainer from './HeaderContainer';
 
-class HomeContainer extends Component {
+class LogoutContainer extends Component {
+  componentDidMount() {
+    if (_.get(this.props, 'auth.isAuth')) {
+      this.props.actions.logout();
+    }
+    this.props.actions.showHome();
+  }
   render() {
-    const {html, actions } = this.props;
-    return (
-      <div>
-        <HeaderContainer/>
-        <Home html={html}/>
-      </div>
-    );
+    return null;
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  return {};
+  return {'auth': _.get(state, 'auth', {})};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -33,4 +31,4 @@ function mapDispatchToProps(dispatch, ownProps) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer)
+)(LogoutContainer)

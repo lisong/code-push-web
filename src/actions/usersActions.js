@@ -1,14 +1,14 @@
 import * as types from './actionTypes';
 import restApi from '../network/RestApi';
-import {saveAuth} from './authActions';
+import {saveAuth, deleteAuth} from './authActions';
 import _ from 'lodash';
 
-// export function logout() {
-//   return (dispatch) => {
-//     dispatch(deleteAuth());
-//     return dispatch({type: types.USER_LOGOUT});
-//   }
-// }
+export function logout() {
+  return (dispatch) => {
+    dispatch(deleteAuth());
+    return dispatch({type: types.USER_LOGOUT});
+  }
+}
 
 export function loginChangeAccountInput(account) {
   return {

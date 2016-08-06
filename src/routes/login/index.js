@@ -1,7 +1,8 @@
 import React from 'react';
 import Login from './Login';
+import Logout from './Logout';
 
-export default {
+var login = {
 
   path: '/login',
 
@@ -10,3 +11,14 @@ export default {
   },
 
 };
+
+var logout = {
+
+  path: '/logout',
+
+  action() {
+    return <Logout />;
+  },
+}
+
+export {login as default, logout};

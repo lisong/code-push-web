@@ -1,4 +1,4 @@
-import {SET_BACK_HISTORY, GO_BACK_HISTORY} from '../actions/actionTypes';
+import {SET_BACK_HISTORY, GO_BACK_HISTORY, SHOW_HOME, SHOW_LOGIN} from '../actions/actionTypes';
 import _ from 'lodash';
 import history from '../core/history';
 
@@ -11,6 +11,14 @@ export function routes(state = {}, action) {
 
     case SET_BACK_HISTORY:
       return Object.assign({}, state, {history: _.get(action, 'payload')});
+
+    case SHOW_HOME:
+      history.replace('/');
+      return state;
+
+    case SHOW_LOGIN:
+      history.replace('/login');
+      return state;
 
     default:
       return state

@@ -30,7 +30,7 @@ export function auth(state = {}, action) {
     case DELETE_AUTH:
       restApi.deleteAuthToken();
       sessionStorage.removeItem('auth');
-      return Object.assign({}, state, {auth: null});
+      return Object.assign({}, state, {token: null, isAuth:false});
 
     default:
       return state

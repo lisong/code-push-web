@@ -1,16 +1,16 @@
-import * as types from './actionTypes';
+import {REQUEST_AUTH, RECEIVE_AUTH, SAVE_AUTH, DELETE_AUTH} from './actionTypes';
 import restApi from '../network/RestApi';
 import _ from 'lodash';
 
 function requestAuth() {
   return {
-    type: types.REQUEST_AUTH,
+    type: REQUEST_AUTH,
   }
 }
 
 function receiveAuth(data) {
   return {
-    type: types.RECEIVE_AUTH,
+    type: RECEIVE_AUTH,
     payload: data,
   }
 }
@@ -32,13 +32,13 @@ export function fetchAuth(isLogin = false) {
 
 export function saveAuth(auth) {
   return {
-    type: types.SAVE_AUTH,
+    type: SAVE_AUTH,
     payload: auth,
   }
 }
 
 export function deleteAuth() {
   return {
-    type: types.DELETE_AUTH,
+    type: DELETE_AUTH,
   }
 }
