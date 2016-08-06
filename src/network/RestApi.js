@@ -30,6 +30,10 @@ class RestApi {
     return this.post('/auth/login', {account: account, password: password, minutes:43200});
   }
 
+  buildReadmeUrl() {
+    return `${this.baseURI}/README.md`;
+  }
+
   dealResponse(response) {
     var self = this;
     return response.text().then(text=> {

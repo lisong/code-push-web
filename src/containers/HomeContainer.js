@@ -9,26 +9,19 @@ import Home from '../components/Home';
 import Header from '../components/Header';
 
 class HomeContainer extends Component {
-  componentWillReceiveProps(newProps) {
-    if (_.get(this.props, 'auth.isAuth') != _.get(newProps, 'auth.isAuth')
-    && _.get(newProps, 'auth.isAuth')) {
-      this.props.actions.goBackHistory();
-    }
-  }
-
   render() {
-    const {login, auth, actions } = this.props;
+    const {html, actions } = this.props;
     return (
       <div>
         <Header/>
-        <Home/>
+        <Home html={html}/>
       </div>
     );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  return {'login': _.get(state, 'login', {}), 'auth': _.get(state, 'auth', {})};
+  return {};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {

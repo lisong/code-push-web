@@ -3,10 +3,10 @@ import React, { PropTypes } from 'react';
 import HomeContainer from '../../containers/HomeContainer';
 const title = 'CodePush Server';
 
-function Home({ news }, context) {
+function Home({ html }, context) {
   context.setTitle(title);
   return (
-    <HomeContainer/>
+    <HomeContainer html={html}/>
   );
 }
 

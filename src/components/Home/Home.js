@@ -8,9 +8,7 @@ class Home extends Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1 className={s.title}>CodePush Server</h1>
-          <ul className={s.news}>
-          </ul>
+          <div dangerouslySetInnerHTML={{ __html: this.props.html || '' }} />
         </div>
       </div>
     );
