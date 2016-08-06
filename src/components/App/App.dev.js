@@ -6,6 +6,8 @@ import Footer from '../Footer';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
 import DevTools from '../DevTools';
+import restApi from '../../network/RestApi';
+import {fetchAuth} from '../../actions/authActions';
 
 class App extends Component {
 
@@ -47,6 +49,8 @@ class App extends Component {
       sessid = uuid.v1();
       sessionStorage.setItem('sessid', sessid)
     }
+    restApi.setUUID(sessid, aQQ_guid);
+    this.props.context.store.dispatch(fetchAuth());
   }
 
   componentWillMount() {

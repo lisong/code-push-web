@@ -11,17 +11,23 @@ class RestApi {
     if (instance) return instance;
     instance = this;
     if (__DEV__ === true) {
-      this.baseURI = _.get(common, 'api.devURL', 'http://m.dev.xiaokangjinfu.com/api');
+      this.baseURI = _.get(common, 'api.devURL', 'http://localhost:3000');
     } else {
-      this.baseURI = _.get(common, 'api.URL', 'http://m.xiaokangjinfu.com/api');
+      this.baseURI = _.get(common, 'api.URL', 'http://localhost:3000');
     }
     this.headers = {'Accept': 'application/json', 'Content-Type': 'application/json'};
     this.dealResponse = this.dealResponse.bind(this);
+    this.setAuthToken = this.setAuthToken.bind(this);
+    this.deleteAuthToken = this.deleteAuthToken.bind(this);
   }
 
   setUUID(sessid, aQQ_guid) {
     this.uuid = sessid;
     this.aQQ_guid = aQQ_guid;
+  }
+
+  login(account, password) {
+    return this.post('/auth/login', {account: account, password: password, minutes:43200});
   }
 
   dealResponse(response) {
@@ -102,6 +108,10 @@ class RestApi {
 
   getHeaders() {
     return this.headers;
+  }
+
+  deleteAuthToken() {
+    delete this.headers.Authorization;
   }
 
   setAuthToken(creds) {
