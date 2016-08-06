@@ -49,10 +49,12 @@ export function fetchLogin(account, password) {
     dispatch(requestLogin());
     return restApi.login(account, password)
     .then(data => {
-      dispatch(receiveLogin(data));
       var auth = _.get(data, 'results.tokens');
       if (!_.isEmpty(auth)) {
         dispatch(saveAuth(auth));
+        dispatch(receiveLogin(data));
+      } else {
+        dispatch(receiveLoginError({errorMessage:_.get(data, 'errorMessage')}));
       }
     });
   };

@@ -25,7 +25,7 @@ export function auth(state = {}, action) {
       var auth = _.get(action, 'payload');
       restApi.setAuthToken(['auth', auth])
       sessionStorage.setItem('auth', auth);
-      return Object.assign({}, state, {token: auth});
+      return Object.assign({}, state, {token: auth, isAuth:true});
 
     case DELETE_AUTH:
       restApi.deleteAuthToken();

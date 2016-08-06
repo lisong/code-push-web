@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Login.css';
+import Link from '../Link';
 
 class Login extends Component {
   static propTypes = {
@@ -11,6 +12,7 @@ class Login extends Component {
     accountInputChange: PropTypes.func,
     passwordInputChange: PropTypes.func,
     submit: PropTypes.func,
+    error: PropTypes.object
   };
   static defaultProps = {
     isFetching: false,
@@ -19,6 +21,7 @@ class Login extends Component {
     password: '',
     passwordInputChange: (password)=>{},
     submit: (account, password)=>{},
+    error: {}
   };
   constructor() {
     super();
@@ -69,6 +72,9 @@ class Login extends Component {
             />
           </div>
           <div className={s.formGroup}>
+            <p className={s.errorTips}>{_.get(this.props, 'error.errorMessage')}</p>
+          </div>
+          <div className={s.formGroup}>
             <button
               className={s.button}
               style={this.props.isFetching ? { backgroundColor:'grey' } : null }
@@ -76,6 +82,10 @@ class Login extends Component {
               >
               登录
             </button>
+          </div>
+          <div className={s.registerText}>
+            <span style={{ float:'left' }}>没有账号?</span>
+            <Link className={s.registerLink} to="/register">立即注册</Link>
           </div>
         </div>
       </div>

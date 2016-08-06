@@ -26,11 +26,12 @@ export function login(state = {}, action) {
       return Object.assign({}, state, {
         isFetching: false,
         password: '',
+        error: null,
       });
     case types.RECEIVE_LOGIN_ERROR:
       return Object.assign({}, state, {
         isFetching: false,
-        error: true
+        error: {..._.get(action, 'payload')}
       });
     default:
       return state
