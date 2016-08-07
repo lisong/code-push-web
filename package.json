@@ -13,6 +13,7 @@
     "classnames": "2.2.5",
     "cookie-parser": "1.4.3",
     "core-js": "2.4.0",
+    "draft-js": "^0.7.0",
     "eventemitter3": "1.2.0",
     "express": "^4.14.0",
     "fastclick": "1.0.6",

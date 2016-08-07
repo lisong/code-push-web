@@ -1,4 +1,15 @@
-import {REQUEST_AUTH, RECEIVE_AUTH, SAVE_AUTH, DELETE_AUTH } from '../actions/actionTypes';
+import {
+  REQUEST_AUTH,
+  RECEIVE_AUTH,
+  SAVE_AUTH,
+  DELETE_AUTH,
+  REQUEST_ACCESS_KEYS,
+  RECEIVE_ACCESS_KEYS,
+  REQUEST_REMOVE_ACCESS_KEY,
+  RECEIVE_REMOVE_ACCESS_KEY,
+  REQUEST_PATCH_ACCESS_KEY,
+  RECEIVE_PATCH_ACCESS_KEY,
+} from '../actions/actionTypes';
 import _ from 'lodash';
 import moment from 'moment';
 import restApi from '../network/RestApi';
@@ -31,6 +42,47 @@ export function auth(state = {}, action) {
       restApi.deleteAuthToken();
       sessionStorage.removeItem('auth');
       return Object.assign({}, state, {token: null, isAuth:false});
+
+    default:
+      return state
+  }
+}
+
+export function accessKeys(state = {}, action) {
+  switch (action.type) {
+    case REQUEST_ACCESS_KEYS:
+      return Object.assign({}, state, {isFetching: true});
+
+    case RECEIVE_ACCESS_KEYS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        rs: _.get(action, 'payload.accessKeys')
+      });
+
+    case REQUEST_REMOVE_ACCESS_KEY:
+      return Object.assign({}, state, {isRemoving: true});
+
+    case RECEIVE_REMOVE_ACCESS_KEY:
+      var friendlyName = _.get(action, 'payload.friendlyName');
+      var data = Object.assign({}, state);
+      _.remove(data.rs, function(row) {
+        return _.get(row, 'friendlyName') == friendlyName;
+      });
+      _.set(data, 'isRemoving', false);
+      return data;
+    case REQUEST_PATCH_ACCESS_KEY:
+      return state;
+
+    case RECEIVE_PATCH_ACCESS_KEY:
+      var friendlyName = _.get(action, 'payload.friendlyName');
+      var data = Object.assign({}, state);
+      var index = _.findIndex(data.rs, function(row) {
+        return _.get(row, 'friendlyName') == friendlyName;
+      });
+      if (_.get(action, 'payload.accessKey')) {
+        _.set(data, `rs.${index}`, _.get(action, 'payload.accessKey'));
+      }
+      return data;
 
     default:
       return state

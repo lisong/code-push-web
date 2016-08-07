@@ -9,5 +9,124 @@
 .container {
   margin: 0 auto;
   padding: 0 0 40px;
+  min-height: 480px;
   max-width: var(--max-content-width);
+}
+
+table{
+  font-size: 1.2em;
+  width: 100%;
+  border-collapse: collapse;
+  color: #666;
+  margin-top: 20px;
+  text-align: center;
+}
+
+th,td {
+  padding: 10px 0;
+  font-weight: normal;
+  border: 1px solid #CACACA;
+  a{
+    width: 100%;
+    color: $main-color;
+  }
+}
+
+th {
+  background-color: #EEEFFE;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn:focus,
+.btn.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn.focus {
+  color: #333;
+  text-decoration: none;
+}
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: .65;
+}
+.btnDanger {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.btnDanger.focus {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+.btnDanger:hover {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+.btnDanger:active,
+.btnDanger.active:hover,
+.btnDanger.active:focus {
+  color: #fff;
+  background-color: #ac2925;
+  border-color: #761c19;
+}
+.btnDanger.disabled,
+.btnDanger[disabled],
+fieldset[disabled] .btnDanger,
+.btnDanger.disabled:hover,
+.btnDanger[disabled]:hover,
+fieldset[disabled] .btnDanger:hover,
+.btnDanger.disabled:focus,
+.btnDanger[disabled]:focus,
+fieldset[disabled] .btnDanger:focus,
+.btnDanger.disabled.focus,
+.btnDanger[disabled].focus,
+fieldset[disabled] .btnDanger.focus,
+.btnDanger.disabled:active,
+.btnDanger[disabled]:active,
+fieldset[disabled] .btnDanger:active,
+.btnDanger.disabled.active,
+.btnDanger[disabled].active,
+fieldset[disabled] .btnDanger.active {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.btnDanger .badge {
+  color: #d9534f;
+  background-color: #fff;
 }

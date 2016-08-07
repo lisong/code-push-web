@@ -22,11 +22,16 @@ class AccessKeysContainer extends Component {
     }
   }
   render() {
-    const {html, actions } = this.props;
+    const {accessKeys, actions } = this.props;
     return (
       <div>
         <HeaderContainer/>
-        <AccessKeys/>
+        <AccessKeys
+          isFetching={_.get(accessKeys, 'isFetching')}
+          rs={_.get(accessKeys, 'rs')}
+          removeKey={actions.reomveAccessKey}
+          patchKey={actions.patchAccessKey}
+        />
         <Footer/>
       </div>
     );
@@ -34,7 +39,7 @@ class AccessKeysContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {'auth': _.get(state, 'auth', {})};
+  return {'accessKeys': _.get(state, 'accessKeys', {})};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {

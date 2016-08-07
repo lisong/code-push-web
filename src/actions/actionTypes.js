@@ -3,6 +3,12 @@ export const REQUEST_AUTH = 'REQUEST_AUTH';
 export const RECEIVE_AUTH = 'RECEIVE_AUTH';
 export const SAVE_AUTH = 'SAVE_AUTH';
 export const DELETE_AUTH = 'DELETE_AUTH';
+export const REQUEST_ACCESS_KEYS = 'REQUEST_ACCESS_KEYS';
+export const RECEIVE_ACCESS_KEYS = 'RECEIVE_ACCESS_KEYS';
+export const REQUEST_REMOVE_ACCESS_KEY = 'REQUEST_REMOVE_ACCESS_KEY';
+export const RECEIVE_REMOVE_ACCESS_KEY = 'RECEIVE_REMOVE_ACCESS_KEY';
+export const REQUEST_PATCH_ACCESS_KEY = 'REQUEST_PATCH_ACCESS_KEY';
+export const RECEIVE_PATCH_ACCESS_KEY = 'RECEIVE_PATCH_ACCESS_KEY';
 /*========= end authActions   ===========*/
 
 /*========= begin usersActions   ===========*/

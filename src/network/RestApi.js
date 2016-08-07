@@ -30,6 +30,18 @@ class RestApi {
     return this.post('/auth/login', {account: account, password: password, minutes:43200});
   }
 
+  getAccessKeys() {
+    return this.get('/accessKeys');
+  }
+
+  removeAccessKey(name) {
+    return this.delete(`/accessKeys/${encodeURI(name)}`);
+  }
+
+  patchAccessKey(name, friendlyName=null, ttl=0) {
+    return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl});
+  }
+
   buildReadmeUrl() {
     return `${this.baseURI}/README.md`;
   }
@@ -43,6 +55,7 @@ class RestApi {
           console.log(response.url);
           console.log(text);
         }
+        console.log(text);
         return JSON.parse(text);
       } catch (e) {
         if (__DEV__) {
@@ -93,7 +106,7 @@ class RestApi {
     });
   }
 
-  delete(uri) {
+  delete(uri, params={}) {
     return fetch(this.baseURI + uri, {
       method: 'DELETE',
       headers: this.headers,
