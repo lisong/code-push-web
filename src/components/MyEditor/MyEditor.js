@@ -22,6 +22,13 @@ class MyEditor extends Component {
     this.saveData = this.saveData.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (_.get(this.props, 'value') != _.get(newProps, 'value')) {
+      var editorState = EditorState.createWithContent(ContentState.createFromText(_.get(newProps, 'value','')));
+      this.setState({editorState});
+    }
+  }
+
   saveData() {
     var str = this.state.editorState.getCurrentContent().getPlainText();
     this.props.saveData(str);
