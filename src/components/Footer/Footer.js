@@ -8,13 +8,11 @@ function Footer() {
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <span className={s.text}>© Your Company</span>
+        <span className={s.text}>© CodePush Server</span>
         <span className={s.spacer}>·</span>
         <Link className={s.link} to="/">Home</Link>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/privacy">Privacy</Link>
-        <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/not-found">Not Found</Link>
+        <a className={s.link} target="_blank" href="https://github.com/lisong/code-push-server/issues/new">Report an issue</a>
       </div>
     </div>
   );

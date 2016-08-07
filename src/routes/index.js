@@ -5,6 +5,8 @@ import App from '../components/App';
 import home from './home';
 import login, {logout} from './login';
 import register from './register';
+import apps from './apps';
+import accessKeys from './accessKeys';
 import error from './error';
 
 export default {
@@ -12,6 +14,8 @@ export default {
   path: '/',
   children: [
     home,
+    apps,
+    accessKeys,
     login,
     logout,
     register,

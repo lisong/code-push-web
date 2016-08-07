@@ -1,4 +1,5 @@
 import {REQUEST_AUTH, RECEIVE_AUTH, SAVE_AUTH, DELETE_AUTH} from './actionTypes';
+import {showLogin} from './routesActions.js'
 import restApi from '../network/RestApi';
 import _ from 'lodash';
 

@@ -7,6 +7,7 @@ import * as usersActions from '../actions/usersActions';
 import * as routesActions from '../actions/routesActions';
 import Home from '../components/Home';
 import HeaderContainer from './HeaderContainer';
+import Footer from '../components/Footer';
 
 class HomeContainer extends Component {
   render() {
@@ -15,6 +16,7 @@ class HomeContainer extends Component {
       <div>
         <HeaderContainer/>
         <Home html={html}/>
+        <Footer/>
       </div>
     );
   }
