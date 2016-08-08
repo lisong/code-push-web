@@ -14,7 +14,7 @@
 }
 
 table{
-  font-size: 1.2em;
+  font-size: 1.1em;
   width: 100%;
   border-collapse: collapse;
   color: #666;
@@ -41,7 +41,12 @@ li {
 }
 
 .permission {
-  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.isYours {
+  padding-left: 10px;
+  color: red;
 }
 
 .permission em {

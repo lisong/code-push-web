@@ -24,11 +24,38 @@ class ProductList extends Component {
     return (
       <tr key={index}>
         <td>{_.get(rowData, 'name')}</td>
-        <td>
+        <td style={{ textAlign: 'left' }}>
           <ul>
           {
             _.map(_.get(rowData, 'collaborators'), function (item, email) {
-              return <li><span className={s.permission}>(<em>{_.get(item, 'permission')}</em>)</span>{email}</li>
+              return (
+                <li>
+                  {email}
+                  <span className={s.permission}>
+                    (<em>{_.get(item, 'permission')}</em>)
+                  </span>
+                  {
+                    _.get(item, 'isCurrentAccount') ?
+                    <span className={s.isYours}>
+                      it's you
+                    </span>
+                    : null
+                  }
+                </li>
+              );
+            })
+          }
+          </ul>
+        </td>
+        <td>
+          <ul>
+          {
+            _.map(_.get(rowData, 'deployments'), function (item, email) {
+              return (
+                <li style={item == 'Production' ? {color: 'green'} : null} >
+                  {item}
+                </li>
+              );
             })
           }
           </ul>
@@ -48,9 +75,10 @@ class ProductList extends Component {
           <table>
             <tbody>
               <tr>
-                <th>产品名</th>
-                <th>成员</th>
-                <th>操作</th>
+                <th width="15%">产品名</th>
+                <th width="45%">成员</th>
+                <th width="20%">Deployments</th>
+                <th width="20%">操作</th>
               </tr>
                {
                  this.props.rs.length > 0 ?
@@ -59,7 +87,7 @@ class ProductList extends Component {
                  })
                  :
                  <tr>
-                  <td colSpan="3" >{tipText}</td>
+                  <td colSpan="4" >{tipText}</td>
                  </tr>
                }
             </tbody>
