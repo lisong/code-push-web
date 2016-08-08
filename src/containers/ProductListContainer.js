@@ -22,11 +22,14 @@ class ProductListContainer extends Component {
     }
   }
   render() {
-    const {html, actions } = this.props;
+    const {products, actions } = this.props;
     return (
       <div>
         <HeaderContainer/>
-        <ProductList/>
+        <ProductList
+          isFetching={_.get(products, 'isFetching')}
+          rs={_.get(products, 'rs')}
+        />
         <Footer/>
       </div>
     );
@@ -34,7 +37,10 @@ class ProductListContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {'auth': _.get(state, 'auth', {})};
+  return {
+    'auth': _.get(state, 'auth', {}),
+    'products': _.get(state, 'products', {})
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {

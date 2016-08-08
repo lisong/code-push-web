@@ -35,3 +35,15 @@ th,td {
 th {
   background-color: #EEEFFF;
 }
+
+li {
+  list-style: none;
+}
+
+.permission {
+  padding-right: 10px;
+}
+
+.permission em {
+  color: green;
+}

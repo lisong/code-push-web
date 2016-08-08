@@ -5,6 +5,16 @@ import s from './ProductList.css';
 import _ from 'lodash';
 
 class ProductList extends Component {
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    rs: PropTypes.array,
+  };
+
+  static defaultProps = {
+    isFetching: true,
+    rs: [],
+  };
+
   constructor() {
     super();
     this.renderRow = this.renderRow.bind(this);
@@ -13,11 +23,17 @@ class ProductList extends Component {
   renderRow(rowData, index) {
     return (
       <tr key={index}>
-        <td>111</td>
-        <td>111</td>
-        <td>111</td>
-        <td>1111</td>
-        <td>111</td>
+        <td>{_.get(rowData, 'name')}</td>
+        <td>
+          <ul>
+          {
+            _.map(_.get(rowData, 'collaborators'), function (item, email) {
+              return <li><span className={s.permission}>(<em>{_.get(item, 'permission')}</em>)</span>{email}</li>
+            })
+          }
+          </ul>
+        </td>
+        <td></td>
       </tr>
     );
   }
@@ -33,19 +49,17 @@ class ProductList extends Component {
             <tbody>
               <tr>
                 <th>产品名</th>
-                <th>拥有者</th>
-                <th>类型</th>
-                <th>创建时间</th>
+                <th>成员</th>
                 <th>操作</th>
               </tr>
                {
-                 [1,2].length > 0 ?
-                 _.map([1,2,2], function (item, index) {
+                 this.props.rs.length > 0 ?
+                 _.map(this.props.rs, function (item, index) {
                    return self.renderRow(item, index);
                  })
                  :
                  <tr>
-                  <td colSpan="5" >{tipText}</td>
+                  <td colSpan="3" >{tipText}</td>
                  </tr>
                }
             </tbody>

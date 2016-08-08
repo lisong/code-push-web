@@ -1,5 +1,10 @@
-import {SET_BACK_HISTORY, GO_BACK_HISTORY, SHOW_HOME, SHOW_LOGIN} from '../actions/actionTypes';
 import _ from 'lodash';
+import {
+  SET_BACK_HISTORY,
+  GO_BACK_HISTORY,
+  SHOW_HOME,
+  SHOW_LOGIN
+} from '../actions/actionTypes';
 import history from '../core/history';
 
 export function routes(state = {}, action) {

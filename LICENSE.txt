@@ -1,2 +1,0 @@
-                            The MIT License
-base on React Starter Kit (https://www.reactstarterkit.com/) framework

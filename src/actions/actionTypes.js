@@ -30,3 +30,9 @@ export const GO_BACK_HISTORY = 'GO_BACK_HISTORY';
 export const SHOW_HOME = 'SHOW_HOME';
 export const SHOW_LOGIN = 'SHOW_LOGIN';
 /*========= end routesActions   ===========*/
+
+/*========= begin productsActions ===========*/
+export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
+export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+
+/*========= end productsActions   ===========*/

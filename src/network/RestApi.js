@@ -27,6 +27,10 @@ class RestApi {
     this.aQQGuid = aQQGuid;
   }
 
+  getProducts() {
+    return this.get('/apps');
+  }
+
   login(account, password) {
     return this.post('/auth/login', {account: account, password: password, minutes:43200});
   }
@@ -65,7 +69,6 @@ class RestApi {
           console.log(response.url);
           console.log(text);
         }
-        console.log(text);
         return JSON.parse(text);
       } catch (e) {
         if (__DEV__) {
