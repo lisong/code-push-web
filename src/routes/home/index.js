@@ -11,6 +11,7 @@ export default {
   async action() {
     const resp = await fetch(restApi.buildReadmeUrl(), {
       method: 'get',
+      timeout: 5000,
       headers: {
         Accept: 'text/html',
         'Content-Type': 'text/html',
