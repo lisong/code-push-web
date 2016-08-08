@@ -9,6 +9,10 @@ import {
   RECEIVE_REMOVE_ACCESS_KEY,
   REQUEST_PATCH_ACCESS_KEY,
   RECEIVE_PATCH_ACCESS_KEY,
+  REQUEST_CREATE_ACCESS_KEY,
+  RECEIVE_CREATE_ACCESS_KEY,
+  OPEN_POP_SHOW_KEY,
+  CLOSE_POP_SHOW_KEY,
 } from '../actions/actionTypes';
 import _ from 'lodash';
 import moment from 'moment';
@@ -84,6 +88,29 @@ export function accessKeys(state = {}, action) {
       }
       return data;
 
+    case REQUEST_CREATE_ACCESS_KEY:
+      return Object.assign({}, state, {isCreating: true});
+
+    case RECEIVE_CREATE_ACCESS_KEY:
+      var data = Object.assign({}, state);
+      if (_.get(action, 'payload.accessKey')) {
+        data.rs.unshift(_.get(action, 'payload.accessKey'));
+      }
+      _.set(data, 'isCreating', false);
+      return data;
+
+    case OPEN_POP_SHOW_KEY:
+      var isOpen = false;
+      var token = '';
+      if (_.get(action, 'payload')) {
+        isOpen = true;
+        token = _.get(action, 'payload');
+      }
+      return Object.assign({}, state, {showKey:{isOpen, token}});
+
+    case CLOSE_POP_SHOW_KEY:
+      return Object.assign({}, state, {showKey:{isOpen:false, token: ''}});
+      
     default:
       return state
   }

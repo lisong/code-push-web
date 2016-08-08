@@ -3,6 +3,7 @@ import _buffer from 'buffer';
 import _ from 'lodash';
 import { common } from '../config';
 import fetch from '../core/fetch';
+import moment from 'moment';
 
 const TIMEOUT = 10000;
 
@@ -21,9 +22,9 @@ class RestApi {
     this.deleteAuthToken = this.deleteAuthToken.bind(this);
   }
 
-  setUUID(sessid, aQQ_guid) {
+  setUUID(sessid, aQQGuid) {
     this.uuid = sessid;
-    this.aQQ_guid = aQQ_guid;
+    this.aQQGuid = aQQGuid;
   }
 
   login(account, password) {
@@ -40,6 +41,15 @@ class RestApi {
 
   patchAccessKey(name, friendlyName=null, ttl=0) {
     return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl});
+  }
+
+  createAccessKey() {
+    var time = moment().format('x');
+    var friendlyName = `Login-${time}`;
+    var ttl = 30*2*24*60*60*1000;
+    var createdBy = friendlyName;
+    var isSession = true;
+    return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession});
   }
 
   buildReadmeUrl() {

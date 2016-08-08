@@ -27,7 +27,7 @@ class Navigation extends Component {
     return (
       <div className={cx(s.root, this.props.className)} role="navigation">
         <Link className={s.link} to="/apps">Apps</Link>
-        <Link className={s.link} to="/accessKeys">AcccessKeys</Link>
+        <Link className={s.link} to="/accessKeys">AccessKeys</Link>
         <span className={s.spacer}> | </span>
         {loginBtnView}
       </div>

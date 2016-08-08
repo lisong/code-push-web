@@ -130,3 +130,58 @@ fieldset[disabled] .btnDanger.active {
   color: #d9534f;
   background-color: #fff;
 }
+
+.btnPrimary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btnPrimary.focus {
+  color: #fff;
+  background-color: #286090;
+  border-color: #122b40;
+}
+.btnPrimary:hover {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btnPrimary:active {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btnPrimary:active:hover,
+.btnPrimary:active:focus {
+  color: #fff;
+  background-color: #204d74;
+  border-color: #122b40;
+}
+.btnPrimary:active {
+  background-image: none;
+}
+.btnPrimary.disabled,
+.btnPrimary[disabled],
+fieldset[disabled] .btnPrimary,
+.btnPrimary.disabled:hover,
+.btnPrimary[disabled]:hover,
+fieldset[disabled] .btnPrimary:hover,
+.btnPrimary.disabled:focus,
+.btnPrimary[disabled]:focus,
+fieldset[disabled] .btnPrimary:focus,
+.btnPrimary.disabled.focus,
+.btnPrimary[disabled].focus,
+fieldset[disabled] .btnPrimary.focus,
+.btnPrimary.disabled:active,
+.btnPrimary[disabled]:active,
+fieldset[disabled] .btnPrimary:active,
+.btnPrimary.disabled.active,
+.btnPrimary[disabled].active,
+fieldset[disabled] .btnPrimary.active {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btnPrimary .badge {
+  color: #337ab7;
+  background-color: #fff;
+}

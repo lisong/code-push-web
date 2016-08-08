@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Link from '../Link';
 import moment from 'moment';
 import MyEditor from '../MyEditor';
+import PopShowKey from './PopShowKey';
 
 class AccessKeys extends Component {
   static propTypes = {
@@ -14,6 +15,11 @@ class AccessKeys extends Component {
     rs: PropTypes.array,
     removeKey: PropTypes.func,
     patchKey: PropTypes.func,
+    isCreating: PropTypes.bool,
+    createKey: PropTypes.func,
+    isShowKey: PropTypes.bool,
+    close: PropTypes.func,
+    token: PropTypes.string,
   };
 
   static defaultProps = {
@@ -21,6 +27,11 @@ class AccessKeys extends Component {
     rs: [],
     removeKey: (name)=>{},
     patchKey: (name, friendlyName=null, ttl=0)=>{},
+    isCreating: false,
+    createKey: ()=>{},
+    isShowKey: false,
+    close: ()=>{},
+    token: '',
   };
 
   constructor(){
@@ -66,7 +77,25 @@ class AccessKeys extends Component {
     }
     return (
       <div className={s.root}>
+      {
+        this.props.isShowKey ?
+        <PopShowKey
+        value={this.props.token}
+        close={this.props.close}
+        />
+        : null
+      }
         <div className={s.container}>
+          <h1>accessKey列表</h1>
+          <span style={{ float:'right', marginBottom:'20px', marginRight:'20px' }}>
+            <button
+              onClick={()=>{
+                self.props.createKey();
+              }}
+              className={cx(s.btn,s.btnPrimary)} disabled={this.props.isCreating ? true:false  } >
+              创建key
+            </button>
+          </span>
           <table>
             <tbody>
               <tr>

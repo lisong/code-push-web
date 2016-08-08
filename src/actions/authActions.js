@@ -9,6 +9,10 @@ import {
   RECEIVE_REMOVE_ACCESS_KEY,
   REQUEST_PATCH_ACCESS_KEY,
   RECEIVE_PATCH_ACCESS_KEY,
+  REQUEST_CREATE_ACCESS_KEY,
+  RECEIVE_CREATE_ACCESS_KEY,
+  CLOSE_POP_SHOW_KEY,
+  OPEN_POP_SHOW_KEY,
 } from './actionTypes';
 import {showLogin} from './routesActions.js'
 import restApi from '../network/RestApi';
@@ -122,4 +126,41 @@ export function patchAccessKey(name, friendlyName=null, ttl=0) {
       dispatch(receivePatchAccessKey(name, data));
     });
   };
+}
+
+export function requestCreateAccessKey() {
+  return {
+    type: REQUEST_CREATE_ACCESS_KEY,
+  }
+}
+
+export function receiveCreateAccessKey(data) {
+  return {
+    type: RECEIVE_CREATE_ACCESS_KEY,
+    payload: data
+  }
+}
+
+export function createAccessKey() {
+  return (dispatch) => {
+    dispatch(requestCreateAccessKey());
+    return restApi.createAccessKey()
+    .then(data => {
+      dispatch(openPopShowKey(_.get(data, 'accessKey.name')));
+      dispatch(receiveCreateAccessKey(data));
+    });
+  };
+}
+
+export function openPopShowKey(key) {
+  return {
+    type: OPEN_POP_SHOW_KEY,
+    payload: key
+  }
+}
+
+export function closePopShowKey() {
+  return {
+    type: CLOSE_POP_SHOW_KEY,
+  }
 }

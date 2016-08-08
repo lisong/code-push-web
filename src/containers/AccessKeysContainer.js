@@ -31,6 +31,11 @@ class AccessKeysContainer extends Component {
           rs={_.get(accessKeys, 'rs')}
           removeKey={actions.reomveAccessKey}
           patchKey={actions.patchAccessKey}
+          isCreating={_.get(accessKeys, 'isCreating')}
+          createKey={actions.createAccessKey}
+          isShowKey={_.get(accessKeys, 'showKey.isOpen')}
+          close={actions.closePopShowKey}
+          token={_.get(accessKeys, 'showKey.token')}
         />
         <Footer/>
       </div>
