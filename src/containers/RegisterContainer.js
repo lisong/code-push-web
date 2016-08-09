@@ -6,12 +6,18 @@ import _ from 'lodash';
 import * as usersActions from '../actions/usersActions';
 import * as routesActions from '../actions/routesActions';
 import Register from '../components/Register';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class RegisterContainer extends Component {
   render() {
     const {login, actions } = this.props;
     return (
-      <Register/>
+      <div>
+        <Header/>
+        <Register/>
+        <Footer/>
+      </div>
     );
   }
 }

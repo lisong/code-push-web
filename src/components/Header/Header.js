@@ -9,17 +9,23 @@ import logoUrl from './logo-small.png';
 class Header extends Component {
   static propTypes = {
     isAuth: PropTypes.bool,
+    noNav: PropTypes.bool,
   };
 
   static defaultProps = {
     isAuth: false,
+    noNav: false
   };
 
   render() {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <Navigation isAuth={this.props.isAuth} className={s.nav} />
+          {
+            !this.props.noNav ?
+            <Navigation isAuth={this.props.isAuth} className={s.nav} />
+            : null
+          }
           <Link className={s.brand} to="/">
             <img src={logoUrl} width="38" height="38" alt="React" />
             <span className={s.brandTxt}>CodePush Server</span>

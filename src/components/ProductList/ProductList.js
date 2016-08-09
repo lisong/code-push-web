@@ -2,6 +2,7 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ProductList.css';
+import cx from 'classnames';
 import _ from 'lodash';
 
 class ProductList extends Component {
@@ -36,7 +37,7 @@ class ProductList extends Component {
                   </span>
                   {
                     _.get(item, 'isCurrentAccount') ?
-                    <span className={s.isYours}>
+                    <span className={cx(s.label, s.labelSuccess)}>
                       it's you
                     </span>
                     : null

@@ -42,11 +42,25 @@ li {
 
 .permission {
   padding-left: 10px;
+  padding-right: 5px;
 }
 
-.isYours {
-  padding-left: 10px;
-  color: red;
+.label {
+  padding: 2px 4px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+
+.labelSuccess {
+  background-color: #2faa60;
 }
 
 .permission em {

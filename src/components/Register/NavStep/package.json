@@ -1,0 +1,6 @@
+{
+  "name": "NavStep",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./NavStep.js"
+}

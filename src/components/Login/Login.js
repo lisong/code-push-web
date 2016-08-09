@@ -3,6 +3,7 @@ import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Login.css';
 import Link from '../Link';
+import Button from '../Button';
 
 class Login extends Component {
   static propTypes = {
@@ -75,13 +76,11 @@ class Login extends Component {
             <p className={s.errorTips}>{_.get(this.props, 'error.errorMessage')}</p>
           </div>
           <div className={s.formGroup}>
-            <button
-              className={s.button}
+            <Button
               style={this.props.isFetching ? { backgroundColor:'grey' } : null }
               onClick={this.submit}
-              >
-              登录
-            </button>
+              value="登录"
+              />
           </div>
           <div className={s.registerText}>
             <span style={{ float:'left' }}>没有账号?</span>

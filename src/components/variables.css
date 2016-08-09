@@ -1,4 +1,5 @@
 :root {
+  --main-color: #90EE90;
   /*
    * Typography
    * ======================================================================== */
@@ -20,3 +21,10 @@
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
 }
+
+/*
+ * clearfix
+ * ========================================================================== */
+.clearfix:after { content: ''; display: block; height: 0; clear: both; }
+.clearfix { zoom: 1; }
+.clear { clear: both; }

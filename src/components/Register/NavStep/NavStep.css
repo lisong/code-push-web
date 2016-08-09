@@ -1,0 +1,68 @@
+@import '../../variables.css';
+
+:root {
+  --main-color: #3CB371;
+}
+
+.progress{
+  font-size: 62.5%;
+  width: 60%;
+  padding: 50px 0 0 0;
+  margin-bottom: 40px;
+}
+
+ul {
+  min-width: 450px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+li {
+  float: left;
+  width: 25%;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 1.6em;
+  color: #666;
+  background-color: #EDEDED;
+  position: relative;
+  list-style: none;
+  display: block;
+}
+
+li i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-style: normal;
+  background-color: var(--main-color);
+  color: #fff;
+  margin-right: 5px;
+  line-height: 1.3;
+}
+
+li em {
+  display: inline-block;
+  width: 28px;
+  height: 45px;
+  background: url(./arrow.png) 0 0 no-repeat;
+  position: absolute;
+  top: 0;
+  right: -14px;
+  z-index: 1;
+}
+
+li:last-child em{
+  display: none;
+}
+
+.current{
+  background-color: var(--main-color);
+  color: #fff;
+}
+.current i{
+  color: var(--main-color);
+  background-color: #fff;
+}

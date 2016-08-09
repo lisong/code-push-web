@@ -37,6 +37,7 @@
     "source-map-support": "0.4.0",
     "universal-router": "1.2.2",
     "uuid": "^2.0.2",
+    "validator": "^5.5.0",
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {

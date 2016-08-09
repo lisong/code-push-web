@@ -6,6 +6,8 @@ import _ from 'lodash';
 import * as usersActions from '../actions/usersActions';
 import * as routesActions from '../actions/routesActions';
 import Login from '../components/Login';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class LoginContainer extends Component {
   componentWillReceiveProps(newProps) {
@@ -24,18 +26,23 @@ class LoginContainer extends Component {
   render() {
     const {login, actions } = this.props;
     return (
-      <Login
-        isFetching={_.get(login, 'isFetching')}
-        account={_.get(login, 'account')}
-        password={_.get(login, 'password')}
-        accountInputChange={actions.loginChangeAccountInput}
-        passwordInputChange={actions.loginChangePasswordInput}
-        submit={()=>actions.fetchLogin(
-          _.get(login, 'account'),
-          _.get(login, 'password')
-        )}
-        error={_.get(login, 'error')}
-      />
+      <div>
+        <Header noNav={true}/>
+        <Login
+          isFetching={_.get(login, 'isFetching')}
+          account={_.get(login, 'account')}
+          password={_.get(login, 'password')}
+          accountInputChange={actions.loginChangeAccountInput}
+          passwordInputChange={actions.loginChangePasswordInput}
+          submit={()=>actions.fetchLogin(
+            _.get(login, 'account'),
+            _.get(login, 'password')
+          )}
+          error={_.get(login, 'error')}
+        />
+        <Footer/>
+      </div>
+
     );
   }
 }
