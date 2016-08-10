@@ -26,6 +26,10 @@ class Register extends Component {
     submitStepTwo: PropTypes.func,
     //-----
     isSubmitStepThree: PropTypes.bool,
+    password: PropTypes.string,
+    passwordInputChange: PropTypes.string,
+    passwordConfirm: PropTypes.func,
+    passwordConfirmInputChange: PropTypes.func,
     submitStepThree: PropTypes.func,
   };
 
@@ -35,6 +39,7 @@ class Register extends Component {
     emailInputChange: (email)=>{},
     isSubmitStepOne: false,
     submitStepOne: ()=>{},
+
     validateCode: '',
     isSending: false,
     lastSendTime: 0,
@@ -42,7 +47,12 @@ class Register extends Component {
     validateCodeInputChange: (validateCode)=>{},
     isSubmitStepTwo: false,
     submitStepTwo: ()=>{},
+
     isSubmitStepThree: false,
+    password: '',
+    passwordInputChange: (password)=>{},
+    passwordConfirm: '',
+    passwordConfirmInputChange: (passwordConfirm)=>{},
     submitStepThree: ()=>{},
   };
 
@@ -75,7 +85,13 @@ class Register extends Component {
     } else if (step == 3) {
       stepView = (
         <StepThree
+          isFetching={this.props.isSubmitStepThree}
+          password={this.props.password}
+          passwordInputChange={this.props.passwordInputChange}
+          passwordConfirm={this.props.passwordConfirm}
+          passwordConfirmInputChange={this.props.passwordConfirmInputChange}
           submit={this.props.submitStepThree}
+          error={this.props.error}
         />
       );
     } else if (step == 4) {

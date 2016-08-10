@@ -69,6 +69,10 @@ class RestApi {
     return this.get(`/users/registerCode/exists?${query}`);
   }
 
+  register(email, password, token) {
+    return this.post(`/users`, {email, password, token});
+  }
+
   buildReadmeUrl() {
     return `${this.baseURI}/README.md`;
   }

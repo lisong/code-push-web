@@ -74,6 +74,26 @@ export function register(state = {}, action) {
     case types.RECEIVE_REGISTER_CHECK_CODE_EXISTS_ERROR:
       return Object.assign({}, state, {isSubmitStepTwo: false, error: _.get(action, 'payload')});
 
+    case types.REGISTER_CHANGE_PASSWORD_INPUT:
+      return Object.assign({}, state, {password: _.get(action, 'payload'), error:null});
+
+    case types.REGISTER_CHANGE_PASSWORD_CONFIRM_INPUT:
+      return Object.assign({}, state, {passwordConfirm: _.get(action, 'payload'), error:null});
+
+    case types.REQUEST_REGISTER:
+      return Object.assign({}, state, {isSubmitStepThree: true, error: null});
+
+    case types.RECEIVE_REGISTER:
+      return Object.assign({}, state, {
+        isSubmitStepThree: false,
+        step: 4,
+        password: '',
+        passwordConfirm: '',
+        error: null
+      });
+
+    case types.RECEIVE_REGISTER_ERROR:
+      return Object.assign({}, state, {isSubmitStepThree: false, error: _.get(action, 'payload')});
 
     default:
       return state;

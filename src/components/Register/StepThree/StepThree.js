@@ -6,24 +6,37 @@ import Button from '../../Button';
 
 class StepThree extends Component {
   static propTypes = {
-    isChecking: PropTypes.bool,
+    isFetching: PropTypes.bool,
     password: PropTypes.string,
+    passwordInputChange: PropTypes.func,
     passwordConfirm: PropTypes.string,
+    passwordConfirmInputChange: PropTypes.func,
+    submit: PropTypes.func,
+    error: PropTypes.object,
   }
 
   static defaultProps = {
-    isChecking: false,
+    isFetching: false,
     password: '',
+    passwordInputChange: (password)=>{},
     passwordConfirm: '',
+    passwordConfirmInputChange: (passwordConfirm)=>{},
+    submit: ()=>{},
+    error: {},
   }
 
   constructor() {
     super();
-    this.setInputEmail = this.setInputEmail.bind(this);
+    this.setInputPassword = this.setInputPassword.bind(this);
+    this.setInputPasswordConfirm = this.setInputPasswordConfirm.bind(this);
   }
 
-  setInputEmail() {
+  setInputPassword(event) {
+    this.props.passwordInputChange(event.target.value);
+  }
 
+  setInputPasswordConfirm(event) {
+    this.props.passwordConfirmInputChange(event.target.value);
   }
 
   render() {
@@ -37,9 +50,9 @@ class StepThree extends Component {
             </label>
             <input
               className={s.input}
-              onChange={this.setInputEmail}
+              onChange={this.setInputPassword}
               id="password"
-              type="text"
+              type="password"
               value={this.props.password}
               placeholder="请输入密码"
               autoFocus
@@ -51,9 +64,9 @@ class StepThree extends Component {
             </label>
             <input
               className={s.input}
-              onChange={this.setInputEmail}
+              onChange={this.setInputPasswordConfirm}
               id="passwordConfirm"
-              type="text"
+              type="password"
               value={this.props.passwordConfirm}
               placeholder="请再次输入密码"
             />
@@ -67,6 +80,7 @@ class StepThree extends Component {
                 if (self.props.isChecking) {
                   return;
                 }
+                self.props.submit();
               }}/>
           </div>
         </div>

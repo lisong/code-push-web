@@ -60,7 +60,7 @@ class StepTwo extends Component {
             sendText = '重新发送';
           }
           if (self.props.isSending) {
-            sendText = '发送中';
+            return <span className={s.countDown}>发送中</span>
           }
           return (
             <span

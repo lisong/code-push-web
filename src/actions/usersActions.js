@@ -181,3 +181,52 @@ export function registerCheckCodeExists(email, validateCode) {
     });
   };
 }
+
+export function registerChangePasswordInput(password) {
+  return {
+    type: types.REGISTER_CHANGE_PASSWORD_INPUT,
+    payload: password
+  };
+}
+
+export function registerChangePasswordConfirmInput(passwordConfirm) {
+  return {
+    type: types.REGISTER_CHANGE_PASSWORD_CONFIRM_INPUT,
+    payload: passwordConfirm
+  };
+}
+
+function requestRegister() {
+  return {
+    type: types.REQUEST_REGISTER,
+  }
+}
+
+function receiveRegister(data) {
+  return {
+    type: types.RECEIVE_REGISTER,
+    payload: data,
+  }
+}
+
+function receiveRegisterError(error) {
+  return {
+    type: types.RECEIVE_REGISTER_ERROR,
+    payload: error,
+  }
+}
+
+export function register(email, password, validateCode) {
+  return (dispatch) => {
+    dispatch(requestRegister());
+    return restApi.register(email, password, validateCode)
+    .then(data => {
+      if (_.get(data, 'status') == "OK") {
+        dispatch(receiveRegister(data));
+      } else {
+        var message = _.get(data, 'message');
+        dispatch(receiveRegisterError({message: message}));
+      }
+    });
+  };
+}

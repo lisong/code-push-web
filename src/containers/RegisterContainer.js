@@ -34,6 +34,12 @@ class RegisterContainer extends Component {
           isSubmitStepTwo={_.get(register, 'isSubmitStepTwo')}
           submitStepTwo={()=>actions.registerCheckCodeExists(email, validateCode)}
           //---
+          isSubmitStepThree={_.get(register, 'isSubmitStepThree')}
+          password={_.get(register, 'password')}
+          passwordInputChange={actions.registerChangePasswordInput}
+          passwordConfirm={_.get(register, 'passwordConfirm')}
+          passwordConfirmInputChange={actions.registerChangePasswordConfirmInput}
+          submitStepThree={()=>actions.register(email, _.get(register, 'password'), validateCode)}
         />
         <Footer/>
       </div>
