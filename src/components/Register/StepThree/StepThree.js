@@ -56,7 +56,6 @@ class StepThree extends Component {
               type="text"
               value={this.props.passwordConfirm}
               placeholder="请再次输入密码"
-              autoFocus
             />
           </div>
           <br/>
@@ -68,7 +67,6 @@ class StepThree extends Component {
                 if (self.props.isChecking) {
                   return;
                 }
-                console.log('111');
               }}/>
           </div>
         </div>

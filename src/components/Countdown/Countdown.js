@@ -29,6 +29,7 @@ export default class Countdown extends Component {
 
   constructor() {
     super();
+    Countdown.retryTimes = 0;
     this.state = {leftTime: 0};
     this.leftTimeCount = this.leftTimeCount.bind(this);
     this.leftTimeSplite = this.leftTimeSplite.bind(this);

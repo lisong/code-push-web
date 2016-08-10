@@ -11,11 +11,30 @@ import Footer from '../components/Footer';
 
 class RegisterContainer extends Component {
   render() {
-    const {login, actions } = this.props;
+    const {register, actions } = this.props;
+    let email = _.get(register, 'email');
+    let validateCode = _.get(register, 'validateCode');
     return (
       <div>
-        <Header/>
-        <Register/>
+        <Header noNav={true}/>
+        <Register
+          step={_.get(register, 'step', 1)}
+          //----
+          email={email}
+          emailInputChange={actions.registerChangeEmailInput}
+          isSubmitStepOne={_.get(register, 'isCheckingEmail')}
+          submitStepOne={()=>actions.registerCheckEmail(email)}
+          //----
+          error={_.get(register, 'error')}
+          isSending={_.get(register, 'isSending')}
+          lastSendTime={_.get(register, 'lastSendTime', 0)}
+          sendValidateCode={()=>actions.registerSendValidateCode(email)}
+          validateCode={validateCode}
+          validateCodeInputChange={actions.registerChangeValidateCodeInput}
+          isSubmitStepTwo={_.get(register, 'isSubmitStepTwo')}
+          submitStepTwo={()=>actions.registerCheckCodeExists(email, validateCode)}
+          //---
+        />
         <Footer/>
       </div>
     );
@@ -23,7 +42,7 @@ class RegisterContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {'login': _.get(state, 'login', {}), 'auth': _.get(state, 'auth', {})};
+  return {'register': _.get(state, 'register', {})};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {

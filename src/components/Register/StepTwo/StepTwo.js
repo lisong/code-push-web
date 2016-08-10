@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './StepTwo.css';
 import Button from '../../Button';
@@ -9,11 +10,29 @@ class StepTwo extends Component {
   static propTypes = {
     isChecking: PropTypes.bool,
     validateCode: PropTypes.string,
+    validateCodeInputChange: PropTypes.func,
+    isSending: PropTypes.bool,
+    lastSendTime: PropTypes.number,
+    sendValidateCode: PropTypes.func,
+    submit: PropTypes.func,
+    error: PropTypes.object,
   }
 
   static defaultProps = {
     isChecking: false,
     validateCode: '',
+    validateCodeInputChange: (code)=>{},
+    isSending: false,
+    lastSendTime: 0,
+    sendValidateCode: ()=>{},
+    submit: ()=>{},
+    error: {},
+  }
+
+  componentDidMount() {
+    if (60 - (parseInt(moment().format('X')) - this.props.lastSendTime) <= 0){
+      this.props.sendValidateCode();
+    }
   }
 
   constructor() {
@@ -21,15 +40,17 @@ class StepTwo extends Component {
     this.setInputValidateCode = this.setInputValidateCode.bind(this);
   }
 
-  setInputValidateCode() {
-
+  setInputValidateCode(event) {
+    this.props.validateCodeInputChange(event.target.value);
   }
 
   render() {
     let self = this;
+    let leftTime = 60 - (parseInt(moment().format('X')) - this.props.lastSendTime);
+    let isValidate = this.props.validateCode ? true : false;
     let countDownView = (
       <Countdown
-        leftTime={0}
+        leftTime={leftTime<0 ? 0 : leftTime}
         renderFunc={({second})=>{
           return <span className={s.countDown}>{second}</span>
         }}
@@ -38,7 +59,21 @@ class StepTwo extends Component {
           if (times > 0) {
             sendText = '重新发送';
           }
-          return <span className={s.sendBtn}>{sendText}</span>
+          if (self.props.isSending) {
+            sendText = '发送中';
+          }
+          return (
+            <span
+              className={s.sendBtn}
+              onClick={()=>{
+                if (!self.props.isSending) {
+                  self.props.sendValidateCode();
+                }
+              }}
+              >
+            {sendText}
+            </span>
+          )
         }}
       />
     )
@@ -66,12 +101,13 @@ class StepTwo extends Component {
           </div>
           <div className={s.formGroup}>
             <Button
-              style={this.props.isChecking ? { backgroundColor:'grey' } : null }
+              style={this.props.isChecking || !isValidate ? { backgroundColor:'grey' } : null }
               value="下一步"
               onClick={()=>{
-                if (self.props.isChecking) {
+                if (self.props.isChecking || !isValidate) {
                   return;
                 }
+                self.props.submit();
               }}/>
           </div>
         </div>

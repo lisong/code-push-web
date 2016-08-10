@@ -8,16 +8,12 @@
   font-size: 62.5%;
   width: 60%;
   padding: 50px 0 0 0;
-  margin-bottom: 40px;
-}
-
-ul {
   min-width: 450px;
-  margin: 0 auto;
-  padding: 0;
+  margin: 0 auto 40px;
+  min-width: 450px;
 }
 
-li {
+.progress li {
   float: left;
   width: 25%;
   height: 45px;
@@ -31,7 +27,7 @@ li {
   display: block;
 }
 
-li i {
+.progress li i {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -43,7 +39,7 @@ li i {
   line-height: 1.3;
 }
 
-li em {
+.progress li em {
   display: inline-block;
   width: 28px;
   height: 45px;
@@ -54,15 +50,16 @@ li em {
   z-index: 1;
 }
 
-li:last-child em{
+.progress li:last-child em{
   display: none;
 }
 
-.current{
+.progress .current {
   background-color: var(--main-color);
   color: #fff;
 }
-.current i{
+
+.progress .current i{
   color: var(--main-color);
   background-color: #fff;
 }

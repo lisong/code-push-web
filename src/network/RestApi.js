@@ -56,6 +56,19 @@ class RestApi {
     return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession});
   }
 
+  checkEmailExists(email) {
+    return this.get(`/users/exists?email=${encodeURI(email)}`);
+  }
+
+  sendRegisterCode(email) {
+    return this.post(`/users/registerCode`, {email});
+  }
+
+  checkRegisterCodeExists(email, code) {
+    let query = `email=${encodeURI(email)}&token=${encodeURI(code)}`;
+    return this.get(`/users/registerCode/exists?${query}`);
+  }
+
   buildReadmeUrl() {
     return `${this.baseURI}/README.md`;
   }

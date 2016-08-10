@@ -3,16 +3,23 @@ import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './StepOne.css';
 import Button from '../../Button';
+import validator from 'validator';
 
 class StepOne extends Component {
   static propTypes = {
     isChecking: PropTypes.bool,
     email: PropTypes.string,
+    emailInputChange: PropTypes.func,
+    submit: PropTypes.func,
+    error: PropTypes.object,
   }
 
   static defaultProps = {
     isChecking: false,
     email: '',
+    emailInputChange:(email)=>{},
+    submit: ()=>{},
+    error: {},
   }
 
   constructor() {
@@ -20,12 +27,13 @@ class StepOne extends Component {
     this.setInputEmail = this.setInputEmail.bind(this);
   }
 
-  setInputEmail() {
-
+  setInputEmail(event) {
+    this.props.emailInputChange(event.target.value);
   }
 
   render() {
     let self = this;
+    var emailIsValidate = validator.isEmail(this.props.email);
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -40,19 +48,20 @@ class StepOne extends Component {
               type="text"
               value={this.props.email}
               placeholder="请输入邮箱地址"
+              autoComplete="off"
               autoFocus
             />
           </div>
-          <br/>
+          <div className={s.errorTip}>{_.get(this.props, 'error.message')}</div>
           <div className={s.formGroup}>
             <Button
-              style={this.props.isChecking ? { backgroundColor:'grey' } : null }
+              style={this.props.isChecking || !emailIsValidate ? { backgroundColor:'grey' } : null }
               value="下一步"
               onClick={()=>{
-                if (self.props.isChecking) {
+                if (self.props.isChecking || !emailIsValidate) {
                   return;
                 }
-                console.log('111');
+                self.props.submit();
               }}/>
           </div>
         </div>

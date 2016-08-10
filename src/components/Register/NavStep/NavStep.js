@@ -23,20 +23,20 @@ class NavStep extends Component {
     ]
     return (
       <ul className={cx(s.progress,s.clearfix)}>
-        {
-          _.map(navArr, function (item, index) {
-            return (
-              <li
-                key={index}
-                className={self.props.step == _.get(item, 'key') ? s.current : null}
-                >
-                <i>{_.get(item, 'key')}</i>
-                {_.get(item, 'text')}
-                <em/>
-              </li>
-            )
-          })
-        }
+      {
+        _.map(navArr, function (item, index) {
+          return (
+            <li
+              key={index}
+              className={self.props.step == _.get(item, 'key') ? s.current : null}
+              >
+              <i>{_.get(item, 'key')}</i>
+              {_.get(item, 'text')}
+              <em/>
+            </li>
+          )
+        })
+      }
       </ul>
     )
   }
