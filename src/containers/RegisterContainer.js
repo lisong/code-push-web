@@ -3,8 +3,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import * as usersActions from '../actions/usersActions';
-import * as routesActions from '../actions/routesActions';
+import * as registersActions from '../actions/registersActions';
 import Register from '../components/Register';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -53,7 +52,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    actions: bindActionCreators(Object.assign({}, usersActions, routesActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, registersActions), dispatch)
   }
 }
 

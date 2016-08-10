@@ -29,7 +29,9 @@ export const LOGIN_CHANGE_PASSWORD_INPUT = 'LOGIN_CHANGE_PASSWORD_INPUT';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 export const RECEIVE_LOGIN_ERROR = 'RECEIVE_LOGIN_ERROR';
+/*========= end usersActions   ===========*/
 
+/*========= begin registersActions   ===========*/
 export const REGISTER_CHANGE_EMAIL_INPUT = 'REGISTER_CHANGE_EMAIL_INPUT';
 
 export const REQUEST_REGISTER_CHECK_EMAIL = 'REQUEST_REGISTER_CHECK_EMAIL';
@@ -52,7 +54,7 @@ export const REGISTER_CHANGE_PASSWORD_CONFIRM_INPUT = 'REGISTER_CHANGE_PASSWORD_
 export const REQUEST_REGISTER = 'REQUEST_REGISTER';
 export const RECEIVE_REGISTER = 'RECEIVE_REGISTER';
 export const RECEIVE_REGISTER_ERROR = 'RECEIVE_REGISTER_ERROR';
-/*========= end usersActions   ===========*/
+/*========= end registersActions   ===========*/
 
 /*========= begin routesActions   ===========*/
 export const SET_BACK_HISTORY = 'SET_BACK_HISTORY';

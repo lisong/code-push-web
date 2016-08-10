@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import {USER_LOGOUT} from '../actions/actionTypes';
 import _ from 'lodash';
-import {users, login, register} from './users';
+import {users, login} from './users';
+import {register} from './registers';
 import {auth, accessKeys} from './auth';
 import {routes} from './routes';
 import {products} from './products';
