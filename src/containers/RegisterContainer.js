@@ -18,6 +18,7 @@ class RegisterContainer extends Component {
         <Header noNav={true}/>
         <Register
           step={_.get(register, 'step', 1)}
+          registerClean={actions.registerClean}
           //----
           email={email}
           emailInputChange={actions.registerChangeEmailInput}

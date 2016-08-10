@@ -172,3 +172,7 @@ export function register(email, password, validateCode) {
     });
   };
 }
+
+export function registerClean() {
+  return {type: types.RECEIVE_REGISTER_CLEAN}
+}

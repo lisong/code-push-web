@@ -11,6 +11,7 @@ import StepDone from './StepDone';
 class Register extends Component {
   static propTypes = {
     step: PropTypes.number,
+    registerClean: PropTypes.func,
     //-----
     email: PropTypes.string,
     emailInputChange: PropTypes.func,
@@ -35,6 +36,7 @@ class Register extends Component {
 
   static defaultProps = {
     step: 1,
+    registerClean: ()=>{},
     email: '',
     emailInputChange: (email)=>{},
     isSubmitStepOne: false,
@@ -55,6 +57,10 @@ class Register extends Component {
     passwordConfirmInputChange: (passwordConfirm)=>{},
     submitStepThree: ()=>{},
   };
+
+  componentWillUnmount() {
+    this.props.registerClean();
+  }
 
   render() {
     var stepView = null;

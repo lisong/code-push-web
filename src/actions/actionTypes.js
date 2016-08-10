@@ -54,6 +54,8 @@ export const REGISTER_CHANGE_PASSWORD_CONFIRM_INPUT = 'REGISTER_CHANGE_PASSWORD_
 export const REQUEST_REGISTER = 'REQUEST_REGISTER';
 export const RECEIVE_REGISTER = 'RECEIVE_REGISTER';
 export const RECEIVE_REGISTER_ERROR = 'RECEIVE_REGISTER_ERROR';
+
+export const RECEIVE_REGISTER_CLEAN = 'RECEIVE_REGISTER_CLEAN';
 /*========= end registersActions   ===========*/
 
 /*========= begin routesActions   ===========*/

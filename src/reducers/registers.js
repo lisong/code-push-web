@@ -59,6 +59,9 @@ export function register(state = {}, action) {
     case types.RECEIVE_REGISTER_ERROR:
       return Object.assign({}, state, {isSubmitStepThree: false, error: _.get(action, 'payload')});
 
+    case types.RECEIVE_REGISTER_CLEAN:
+      return {};
+      
     default:
       return state;
   }
