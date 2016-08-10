@@ -3,6 +3,7 @@ import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './StepOne.css';
 import Button from '../../Button';
+import Link from '../../Link';
 import validator from 'validator';
 
 class StepOne extends Component {
@@ -63,6 +64,11 @@ class StepOne extends Component {
                 }
                 self.props.submit();
               }}/>
+          </div>
+          <div className={s.loginBtn}>
+            <Link to="/login">
+              已有帐号
+            </Link>
           </div>
         </div>
       </div>

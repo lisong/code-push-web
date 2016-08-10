@@ -28,8 +28,8 @@ class Register extends Component {
     //-----
     isSubmitStepThree: PropTypes.bool,
     password: PropTypes.string,
-    passwordInputChange: PropTypes.string,
-    passwordConfirm: PropTypes.func,
+    passwordInputChange: PropTypes.func,
+    passwordConfirm: PropTypes.string,
     passwordConfirmInputChange: PropTypes.func,
     submitStepThree: PropTypes.func,
   };

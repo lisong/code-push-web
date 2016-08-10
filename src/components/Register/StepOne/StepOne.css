@@ -49,3 +49,13 @@
 .errorTip {
   color: red;
 }
+
+.loginBtn {
+  margin-top: 40px;
+  width: 100%;
+  text-align: center;
+}
+.loginBtn a {
+  text-decoration: none;
+  color: #3CB371;
+}

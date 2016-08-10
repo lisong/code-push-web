@@ -49,7 +49,7 @@ class Login extends Component {
           <h1>登录</h1>
           <div className={s.formGroup}>
             <label className={s.label} htmlFor="usernameOrEmail">
-              请输入用户名/邮箱地址:
+              请输入邮箱地址:
             </label>
             <input
               className={s.input}
@@ -57,6 +57,7 @@ class Login extends Component {
               id="usernameOrEmail"
               type="text"
               value={this.props.account}
+              placeholder="请输入邮箱地址"
               autoFocus
             />
           </div>
@@ -70,6 +71,7 @@ class Login extends Component {
               id="password"
               type="password"
               value={this.props.password}
+              placeholder="请输入登录密码"
             />
           </div>
           <div className={s.formGroup}>
