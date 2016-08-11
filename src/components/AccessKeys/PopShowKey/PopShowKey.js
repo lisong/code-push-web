@@ -47,7 +47,7 @@ class PopShowKey extends Component {
             readOnly
             />
           </p>
-          <p><button onClick={this.close} >关闭</button></p>
+          <p><button className={s.btn} onClick={this.close} >关闭</button></p>
         </div>
       </Modal>
     )

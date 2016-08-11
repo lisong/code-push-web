@@ -30,7 +30,7 @@ class StepTwo extends Component {
   }
 
   componentDidMount() {
-    if (60 - (parseInt(moment().format('X')) - this.props.lastSendTime) <= 0){
+    if (120 - (parseInt(moment().format('X')) - this.props.lastSendTime) <= 0){
       this.props.sendValidateCode();
     }
   }
@@ -46,7 +46,7 @@ class StepTwo extends Component {
 
   render() {
     let self = this;
-    let leftTime = 60 - (parseInt(moment().format('X')) - this.props.lastSendTime);
+    let leftTime = 120 - (parseInt(moment().format('X')) - this.props.lastSendTime);
     let isValidate = this.props.validateCode ? true : false;
     let countDownView = (
       <Countdown
@@ -99,6 +99,8 @@ class StepTwo extends Component {
             />
             {countDownView}
           </div>
+          <br/>
+          <div className={s.errorTip}>{_.get(this.props, 'error.message')}</div>
           <div className={s.formGroup}>
             <Button
               style={this.props.isChecking || !isValidate ? { backgroundColor:'grey' } : null }

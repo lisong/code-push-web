@@ -27,20 +27,36 @@ class StepThree extends Component {
 
   constructor() {
     super();
+    this.state = {field1: false, field2: false}
     this.setInputPassword = this.setInputPassword.bind(this);
     this.setInputPasswordConfirm = this.setInputPasswordConfirm.bind(this);
   }
 
   setInputPassword(event) {
+    this.setState({field1: true});
     this.props.passwordInputChange(event.target.value);
   }
 
   setInputPasswordConfirm(event) {
+    this.setState({field2: true});
     this.props.passwordConfirmInputChange(event.target.value);
   }
 
   render() {
     let self = this;
+    let passwordTips = '';
+    let passwordConfirmTips = '';
+    if (this.state.field1 && this.props.password.length < 6) {
+      passwordTips = '密码长度至少为6位'
+    }
+    if (this.state.field2 && !_.eq(this.props.passwordConfirm, this.props.password) ) {
+      passwordConfirmTips = '确认密码和密码不一致'
+    }
+    let isValidate = false;
+    if (this.props.password.length>=6
+      && _.eq(this.props.passwordConfirm, this.props.password)) {
+      isValidate = true;
+    }
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -51,6 +67,7 @@ class StepThree extends Component {
             <input
               className={s.input}
               onChange={this.setInputPassword}
+              onBlur={()=>this.setState({field1: true})}
               id="password"
               type="password"
               value={this.props.password}
@@ -58,6 +75,7 @@ class StepThree extends Component {
               autoFocus
             />
           </div>
+          <div className={s.errorTip}>{passwordTips}</div>
           <div className={s.formGroup}>
             <label className={s.label} htmlFor="passwordConfirm">
               确认密码:
@@ -65,19 +83,22 @@ class StepThree extends Component {
             <input
               className={s.input}
               onChange={this.setInputPasswordConfirm}
+              onBlur={()=>this.setState({field2: true})}
               id="passwordConfirm"
               type="password"
               value={this.props.passwordConfirm}
               placeholder="请再次输入密码"
             />
           </div>
+          <div className={s.errorTip}>{passwordConfirmTips}</div>
           <br/>
+          <div className={s.errorTip2}>{_.get(this.props, 'error.message')}</div>
           <div className={s.formGroup}>
             <Button
-              style={this.props.isChecking ? { backgroundColor:'grey' } : null }
+              style={this.props.isFetching || !isValidate ? { backgroundColor:'grey' } : null }
               value="注册"
               onClick={()=>{
-                if (self.props.isChecking) {
+                if (self.props.isFetching || !isValidate) {
                   return;
                 }
                 self.props.submit();
