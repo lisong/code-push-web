@@ -15,19 +15,23 @@ class Navigation extends Component {
   render() {
     let loginBtnView = (
       <span>
-        <Link className={s.link} to="/login">Log in</Link>
+        <Link className={s.link} to="/login">登录</Link>
         <span className={s.spacer}>or</span>
-        <Link className={cx(s.link, s.highlight)} to="/register">Sign up</Link>
+        <Link className={cx(s.link, s.highlight)} to="/register">注册</Link>
       </span>
     );
     if (_.get(this.props, 'isAuth') == true) {
-      loginBtnView = <Link className={s.link} to="/logout">Log out</Link>
-
+      loginBtnView = <Link className={s.link} to="/logout">安全退出</Link>
     }
     return (
       <div className={cx(s.root, this.props.className)} role="navigation">
-        <Link className={s.link} to="/apps">Apps</Link>
-        <Link className={s.link} to="/accessKeys">AccessKeys</Link>
+        <Link className={s.link} to="/apps">应用管理</Link>
+        <Link className={s.link} to="/accessKeys">我的密钥</Link>
+        {
+          _.get(this.props, 'isAuth') == true ?
+          <Link className={s.link} to="/users/settings">个人设置</Link>
+          : null
+        }
         <span className={s.spacer}> | </span>
         {loginBtnView}
       </div>

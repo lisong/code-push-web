@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import AccessKeysContainer from '../../containers/AccessKeysContainer';
-const title = 'AccessKeys';
+const title = '我的密钥';
 
 function AccessKeys(props, context) {
   context.setTitle(title);

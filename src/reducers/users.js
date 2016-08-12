@@ -13,7 +13,6 @@ export function users(state = {}, action) {
 export function login(state = {}, action) {
   switch (action.type) {
     case types.LOGIN_CHANGE_ACCOUNT_INPUT:
-
       return Object.assign({}, state, {account: _.get(action, 'payload')});
 
     case types.LOGIN_CHANGE_PASSWORD_INPUT:
@@ -33,6 +32,22 @@ export function login(state = {}, action) {
         isFetching: false,
         error: {..._.get(action, 'payload')}
       });
+    default:
+      return state
+  }
+}
+
+export function password(state = {}, action) {
+  switch (action.type) {
+    case types.PASSWORD_CHANGE_OLD_INPUT:
+      return Object.assign({}, state, {oldPassword:  _.get(action, 'payload')});
+
+    case types.PASSWORD_CHANGE_NEW_INPUT:
+      return Object.assign({}, state, {newPassword:  _.get(action, 'payload')});
+
+    case types.PASSWORD_CHANGE_NEW_CONFIRM_INPUT:
+      return Object.assign({}, state, {newPasswordConfirm:  _.get(action, 'payload')});
+
     default:
       return state
   }

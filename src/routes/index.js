@@ -7,6 +7,7 @@ import login, {logout} from './login';
 import register from './register';
 import apps from './apps';
 import accessKeys from './accessKeys';
+import users, {settings as usersSettings} from './users';
 import error from './error';
 
 export default {
@@ -20,6 +21,8 @@ export default {
     logout,
     register,
     error,
+    users,
+    usersSettings,
   ],
 
   async action({ next, render, context }) {

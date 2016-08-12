@@ -72,7 +72,7 @@ class ProductList extends Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>App列表</h1>
+          <h1>应用列表</h1>
           <table>
             <tbody>
               <tr>

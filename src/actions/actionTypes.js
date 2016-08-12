@@ -29,6 +29,10 @@ export const LOGIN_CHANGE_PASSWORD_INPUT = 'LOGIN_CHANGE_PASSWORD_INPUT';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 export const RECEIVE_LOGIN_ERROR = 'RECEIVE_LOGIN_ERROR';
+
+export const PASSWORD_CHANGE_OLD_INPUT = 'PASSWORD_CHANGE_OLD_INPUT';
+export const PASSWORD_CHANGE_NEW_INPUT = 'PASSWORD_CHANGE_NEW_INPUT';
+export const PASSWORD_CHANGE_NEW_CONFIRM_INPUT = 'PASSWORD_CHANGE_NEW_CONFIRM_INPUT';
 /*========= end usersActions   ===========*/
 
 /*========= begin registersActions   ===========*/

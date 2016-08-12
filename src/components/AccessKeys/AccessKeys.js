@@ -86,7 +86,7 @@ class AccessKeys extends Component {
         : null
       }
         <div className={s.container}>
-          <h1>accessKey列表</h1>
+          <h1>密钥列表</h1>
           <span style={{ float:'right', marginBottom:'20px', marginRight:'20px' }}>
             <button
               onClick={()=>{

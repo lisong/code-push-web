@@ -59,3 +59,24 @@ export function fetchLogin(account, password) {
     });
   };
 }
+
+export function passwordChangeOldInput(oldPassword) {
+  return {
+    type: types.PASSWORD_CHANGE_OLD_INPUT,
+    payload: oldPassword
+  }
+}
+
+export function passwordChangeNewInput(newPassword) {
+  return {
+    type: types.PASSWORD_CHANGE_NEW_INPUT,
+    payload: newPassword
+  }
+}
+
+export function passwordChangeNewConfirmInput(newPasswordConfirm) {
+  return {
+    type: types.PASSWORD_CHANGE_NEW_CONFIRM_INPUT,
+    payload: newPasswordConfirm
+  }
+}

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ProductListContainer from '../../containers/ProductListContainer';
-const title = 'App list';
+const title = '应用管理';
 
 function Apps(props, context) {
   context.setTitle(title);

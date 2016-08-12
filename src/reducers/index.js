@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {USER_LOGOUT} from '../actions/actionTypes';
 import _ from 'lodash';
-import {users, login} from './users';
+import {users, login, password} from './users';
 import {register} from './registers';
 import {auth, accessKeys} from './auth';
 import {routes} from './routes';
@@ -9,6 +9,7 @@ import {products} from './products';
 
 const appReducer = combineReducers({
   users,
+  password,
   login,
   register,
   auth,
@@ -22,6 +23,7 @@ const rootReducer = (state, action) => {
     let data = Object.assign({}, state);
     _.set(data, 'auth', {});
     _.set(data, 'users', {});
+    _.set(data, 'password', {});
     _.set(data, 'products', {});
     _.set(data, 'accessKeys', {});
     return appReducer(data, action)
