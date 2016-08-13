@@ -30,7 +30,7 @@ class ProductList extends Component {
           {
             _.map(_.get(rowData, 'collaborators'), function (item, email) {
               return (
-                <li>
+                <li key={email}>
                   {email}
                   <span className={s.permission}>
                     (<em>{_.get(item, 'permission')}</em>)
@@ -53,7 +53,7 @@ class ProductList extends Component {
           {
             _.map(_.get(rowData, 'deployments'), function (item, email) {
               return (
-                <li style={item == 'Production' ? {color: 'green'} : null} >
+                <li key={email} style={item == 'Production' ? {color: 'green'} : null} >
                   {item}
                 </li>
               );

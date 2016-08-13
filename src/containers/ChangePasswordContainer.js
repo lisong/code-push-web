@@ -24,16 +24,21 @@ class ChangePasswordContainer extends Component {
 
   render() {
     const {password, actions} = this.props;
+    let oldPassword = _.get(password, 'oldPassword');
+    let newPassword = _.get(password, 'newPassword');
     return (
       <div>
         <HeaderContainer/>
         <ChangePassword
-          oldPassword={_.get(password, 'oldPassword')}
+          isFetching={_.get(password, 'isFetching')}
+          oldPassword={oldPassword}
           oldPasswordInputChange={actions.passwordChangeOldInput}
-          newPassword={_.get(password, 'newPassword')}
+          newPassword={newPassword}
           newPasswordInputChange={actions.passwordChangeNewInput}
           newPasswordConfirm={_.get(password, 'newPasswordConfirm')}
           newPasswordConfirmInputChange={actions.passwordChangeNewConfirmInput}
+          submit={()=>actions.modifyPassword(oldPassword, newPassword)}
+          error={_.get(password, 'error')}
         />
         <Footer/>
       </div>

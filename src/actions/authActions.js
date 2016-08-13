@@ -124,6 +124,8 @@ export function patchAccessKey(name, friendlyName=null, ttl=0) {
     return restApi.patchAccessKey(name, friendlyName, ttl)
     .then(data => {
       dispatch(receivePatchAccessKey(name, data));
+    }).catch(function(e){
+      console.log(e);
     });
   };
 }

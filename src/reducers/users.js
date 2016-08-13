@@ -40,13 +40,22 @@ export function login(state = {}, action) {
 export function password(state = {}, action) {
   switch (action.type) {
     case types.PASSWORD_CHANGE_OLD_INPUT:
-      return Object.assign({}, state, {oldPassword:  _.get(action, 'payload')});
+      return Object.assign({}, state, {oldPassword: _.get(action, 'payload'), error: null});
 
     case types.PASSWORD_CHANGE_NEW_INPUT:
-      return Object.assign({}, state, {newPassword:  _.get(action, 'payload')});
+      return Object.assign({}, state, {newPassword: _.get(action, 'payload'), error: null});
 
     case types.PASSWORD_CHANGE_NEW_CONFIRM_INPUT:
-      return Object.assign({}, state, {newPasswordConfirm:  _.get(action, 'payload')});
+      return Object.assign({}, state, {newPasswordConfirm: _.get(action, 'payload'), error: null});
+
+    case types.REQUEST_MODIFY_PASSWORD:
+      return Object.assign({}, state, {isFetching: true});
+
+    case types.RECEIVE_MODIFY_PASSWORD:
+      return {isFetching: false};
+
+    case types.RECEIVE_MODIFY_PASSWORD_ERROR:
+      return Object.assign({}, state, {isFetching: false, error: _.get(action, 'payload')});
 
     default:
       return state

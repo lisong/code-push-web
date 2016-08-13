@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import restApi from '../network/RestApi';
 import {saveAuth, deleteAuth} from './authActions';
+import {showLogin} from './routesActions';
 import _ from 'lodash';
 
 export function logout() {
@@ -79,4 +80,40 @@ export function passwordChangeNewConfirmInput(newPasswordConfirm) {
     type: types.PASSWORD_CHANGE_NEW_CONFIRM_INPUT,
     payload: newPasswordConfirm
   }
+}
+
+function requestModifyPassword() {
+  return {
+    type: types.REQUEST_MODIFY_PASSWORD,
+  }
+}
+
+function receiveModifyPassword(data) {
+  return {
+    type: types.RECEIVE_MODIFY_PASSWORD,
+    payload: data,
+  }
+}
+
+function receiveModifyPasswordError(error) {
+  return {
+    type: types.RECEIVE_MODIFY_PASSWORD_ERROR,
+    payload: error,
+  }
+}
+
+export function modifyPassword(oldPassword, newPassword) {
+  return (dispatch) => {
+    dispatch(requestModifyPassword());
+    return restApi.password(oldPassword, newPassword)
+    .then(data => {
+      if (_.get(data, 'status') == "OK") {
+        dispatch(deleteAuth());
+        dispatch(receiveModifyPassword(data));
+        dispatch(showLogin());
+      } else {
+        dispatch(receiveModifyPasswordError({message: _.get(data, 'message')}));
+      }
+    });
+  };
 }

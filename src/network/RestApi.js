@@ -73,6 +73,10 @@ class RestApi {
     return this.post(`/users`, {email, password, token});
   }
 
+  password(oldPassword, newPassword) {
+    return this.patch(`/users/password`, {oldPassword, newPassword});
+  }
+
   buildReadmeUrl() {
     return `${this.baseURI}/README.md`;
   }
