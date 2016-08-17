@@ -24,7 +24,12 @@ export function register(state = {}, action) {
 
     case types.RECEIVE_REGISTER_SEND_VALIDATE_CODE:
       var lastSendTime = parseInt(moment().format('X'));
-      return Object.assign({}, state, {isSending: false, lastSendTime: lastSendTime, validateCode:''});
+      return Object.assign({}, state, {
+        isSending: false,
+        lastSendTime: lastSendTime,
+        validateCode:'',
+        error: null
+      });
 
     case types.RECEIVE_REGISTER_SEND_VALIDATE_CODE_ERROR:
       return Object.assign({}, state, {isSending: false, error: _.get(action, 'payload')});
@@ -61,7 +66,7 @@ export function register(state = {}, action) {
 
     case types.RECEIVE_REGISTER_CLEAN:
       return {};
-      
+
     default:
       return state;
   }
