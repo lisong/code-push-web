@@ -34,4 +34,4 @@ $ node ./server.js
 ## BASE ON [React Starter Kit](https://github.com/kriasoft/react-starter-kit)
 
 ## License
-MIT License [read](https://github.com/lisong/code-push-web/blob/master/LICENSE)
+MIT License [read](https://github.com/lisong/code-push-web/blob/master/LICENSE.txt)

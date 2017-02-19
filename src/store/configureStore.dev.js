@@ -1,29 +1,45 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { persistState } from 'redux-devtools';
 import rootReducer from '../reducers';
+import createHelpers from './createHelpers';
 import createLogger from './logger';
 import DevTools from '../components/DevTools';
-import { persistState } from 'redux-devtools';
 
 export default function configureStore(initialState, helpersConfig) {
-  const middleware = [thunk];
+  const helpers = createHelpers(helpersConfig);
+  const middleware = [thunk.withExtraArgument(helpers)];
 
   let enhancer;
-  middleware.push(createLogger());
-  enhancer = compose(
-    applyMiddleware(...middleware),
-    DevTools.instrument(),
-    persistState(
-      window.location.href.match(
-        /[?&]debug_session=([^&#]+)\b/
-      )
-    ),
-  );
+
+  if (__DEV__) {
+    middleware.push(createLogger());
+
+    // https://github.com/zalmoxisus/redux-devtools-extension#redux-devtools-extension
+    let devToolsExtension = f => f;
+    if (process.env.BROWSER && window.devToolsExtension) {
+      devToolsExtension = persistState(
+        window.location.href.match(
+          /[?&]debug_session=([^&#]+)\b/,
+        ),
+      );
+    }
+
+    enhancer = compose(
+      applyMiddleware(...middleware),
+      DevTools.instrument(),
+      devToolsExtension,
+    );
+  }
+
+  // See https://github.com/rackt/redux/releases/tag/v3.1.0
   const store = createStore(rootReducer, initialState, enhancer);
 
-  if (module.hot) {
+  // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
+  if (__DEV__ && module.hot) {
     module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers').default)
+      // eslint-disable-next-line global-require
+      store.replaceReducer(require('../reducers').default),
     );
   }
 

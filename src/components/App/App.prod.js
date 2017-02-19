@@ -1,76 +1,90 @@
-import React, { Component, PropTypes } from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
-import s from './App.css';
-import Header from '../Header';
-import Footer from '../Footer';
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+import React, { Children, PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
+import uuid from 'uuid';
 import restApi from '../../network/RestApi';
-import {fetchAuth} from '../../actions/authActions';
+import { fetchAuth } from '../../actions/authActions';
 
-class App extends Component {
+const ContextType = {
+  // Enables critical path CSS rendering
+  // https://github.com/kriasoft/isomorphic-style-loader
+  insertCss: PropTypes.func.isRequired,
+  // Integrate Redux
+  // http://redux.js.org/docs/basics/UsageWithReact.html
+  store: PropTypes.shape({
+    subscribe: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    getState: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+/**
+ * The top-level React component setting context (global) variables
+ * that can be accessed from all the child components.
+ *
+ * https://facebook.github.io/react/docs/context.html
+ *
+ * Usage example:
+ *
+ *   const context = {
+ *     history: createBrowserHistory(),
+ *     store: createStore(),
+ *   };
+ *
+ *   ReactDOM.render(
+ *     <App context={context}>
+ *       <Layout>
+ *         <LandingPage />
+ *       </Layout>
+ *     </App>,
+ *     container,
+ *   );
+ */
+class App extends React.PureComponent {
 
   static propTypes = {
-    context: PropTypes.shape({
-      store: PropTypes.object.isRequired,
-      insertCss: PropTypes.func,
-      setTitle: PropTypes.func,
-      setMeta: PropTypes.func,
-    }).isRequired,
+    context: PropTypes.shape(ContextType).isRequired,
     children: PropTypes.element.isRequired,
-    error: PropTypes.object,
   };
 
-  static childContextTypes = {
-    insertCss: PropTypes.func.isRequired,
-    setTitle: PropTypes.func.isRequired,
-    setMeta: PropTypes.func.isRequired,
-  };
+  static childContextTypes = ContextType;
 
   getChildContext() {
-    const context = this.props.context;
-    return {
-      insertCss: context.insertCss || emptyFunction,
-      setTitle: context.setTitle || emptyFunction,
-      setMeta: context.setMeta || emptyFunction,
-    };
+    return this.props.context;
   }
 
   componentDidMount() {
-    var uuid = require('uuid');
-    let aQQ_guid = localStorage.getItem('aQQ_guid');
-    if (_.isEmpty(aQQ_guid) ||  aQQ_guid.length < 10) {
-      aQQ_guid = uuid.v1();
-      localStorage.setItem('aQQ_guid', aQQ_guid)
+    let aQQGuid = localStorage.getItem('aQQ_guid');
+    if (_.isEmpty(aQQGuid) || aQQGuid.length < 10) {
+      aQQGuid = uuid.v1();
+      localStorage.setItem('aQQ_guid', aQQGuid);
     }
     let sessid = sessionStorage.getItem('sessid');
-    if (_.isEmpty(sessid) ||  sessid.length < 10) {
+    if (_.isEmpty(sessid) || sessid.length < 10) {
       sessid = uuid.v1();
-      sessionStorage.setItem('sessid', sessid)
+      sessionStorage.setItem('sessid', sessid);
     }
-    restApi.setUUID(sessid, aQQ_guid);
+    restApi.setUUID(sessid, aQQGuid);
     this.props.context.store.dispatch(fetchAuth());
   }
 
-  componentWillMount() {
-    const { insertCss } = this.props.context;
-    this.removeCss = insertCss(s);
-  }
-
-  componentWillUnmount() {
-    this.removeCss();
-  }
-
   render() {
-    if (this.props.error) {
-      return this.props.children;
-    }
-
     const store = this.props.context.store;
+    // NOTE: If you need to add or modify header, footer etc. of the app,
+    // please do that inside the Layout component.
     return (
       <Provider store={store}>
         <div>
-          {this.props.children}
+          {Children.only(this.props.children)}
         </div>
       </Provider>
     );

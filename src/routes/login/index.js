@@ -1,24 +1,30 @@
 import React from 'react';
-import Login from './Login';
-import Logout from './Logout';
+import Layout from '../../components/Layout';
+import LoginContainer from '../../containers/LoginContainer';
+import LogoutContainer from '../../containers/LogoutContainer';
 
-var login = {
+const login = {
 
   path: '/login',
 
   action() {
-    return <Login />;
+    return {
+      title: '登录',
+      component: <Layout><LoginContainer /></Layout>,
+    };
   },
-
 };
 
-var logout = {
+const logout = {
 
   path: '/logout',
 
   action() {
-    return <Logout />;
+    return {
+      title: '退出',
+      component: <Layout><LogoutContainer /></Layout>,
+    };
   },
-}
+};
 
-export {login as default, logout};
+export { login as default, logout };

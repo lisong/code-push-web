@@ -1,5 +1,13 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import history from '../../core/history';
 
 function isLeftClickEvent(event) {
@@ -10,16 +18,18 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-class Link extends Component { // eslint-disable-line react/prefer-stateless-function
-
+class Link extends React.Component {
   static propTypes = {
-    to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    to: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
   };
 
-  handleClick = (event) => {
-    let allowTransition = true;
+  static defaultProps = {
+    onClick: null,
+  };
 
+  handleClick = (event) => {
     if (this.props.onClick) {
       this.props.onClick(event);
     }
@@ -29,28 +39,17 @@ class Link extends Component { // eslint-disable-line react/prefer-stateless-fun
     }
 
     if (event.defaultPrevented === true) {
-      allowTransition = false;
+      return;
     }
 
     event.preventDefault();
-
-    if (allowTransition) {
-      if (this.props.to) {
-        history.push(this.props.to);
-      } else {
-        history.push({
-          pathname: event.currentTarget.pathname,
-          search: event.currentTarget.search,
-        });
-      }
-    }
+    history.push(this.props.to);
   };
 
   render() {
-    const { to, ...props } = this.props; // eslint-disable-line no-use-before-define
-    return <a href={history.createHref(to)} {...props} onClick={this.handleClick} />;
+    const { to, children, ...props } = this.props;
+    return <a href={to} {...props} onClick={this.handleClick}>{children}</a>;
   }
-
 }
 
 export default Link;

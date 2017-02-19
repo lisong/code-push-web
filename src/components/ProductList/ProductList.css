@@ -13,7 +13,7 @@
   max-width: var(--max-content-width);
 }
 
-table{
+table {
   font-size: 1.1em;
   width: 100%;
   border-collapse: collapse;
@@ -22,22 +22,30 @@ table{
   text-align: center;
 }
 
-th,td {
+th,
+td {
   padding: 10px 0;
   font-weight: normal;
-  border: 1px solid #CACACA;
-  a{
-    width: 100%;
-    color: $main-color;
-  }
+  border: 1px solid #cacaca;
+}
+
+th a,
+td a {
+  width: 100%;
+  color: $main-color;
 }
 
 th {
-  background-color: #EEEFFF;
+  background-color: #eeefff;
 }
 
 li {
   list-style: none;
+}
+
+li a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .permission {
@@ -56,7 +64,7 @@ li {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .25em;
+  border-radius: 0.25em;
 }
 
 .labelSuccess {

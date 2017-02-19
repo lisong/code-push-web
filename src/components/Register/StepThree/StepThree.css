@@ -1,4 +1,4 @@
-@import '../../variables.css';
+@import '../../../components/variables.css';
 
 .root {
   padding-left: 20px;
@@ -14,6 +14,13 @@
 
 .formGroup {
   margin-bottom: 15px;
+  min-width: 390px;
+}
+
+.warning {
+  margin-bottom: 15px;
+  color: grey;
+  font-size: 14px;
 }
 
 .label {
@@ -28,7 +35,7 @@
   display: inline;
   box-sizing: border-box;
   padding: 10px 16px;
-  width: 70%;
+  width: 60%;
   height: 46px;
   outline: 0;
   border: 1px solid #ccc;
@@ -46,10 +53,29 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 116, 194, 0.6);
 }
 
-.errorTip {
-  color: red;
-  margin-bottom: 20px;
-  margin-left: 22%;
+.sendBtn {
+  width: 30px;
+  padding: 12px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.sendBtn:hover {
+  background: #e6e6fa;
+}
+
+.countDown {
+  width: 45px;
+  display: inline-block;
+  padding: 12px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 8px;
+  text-align: center;
 }
 
 .errorTip {

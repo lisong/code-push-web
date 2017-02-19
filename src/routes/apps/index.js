@@ -1,19 +1,24 @@
 
 import React from 'react';
-import Apps from './Apps';
+import Layout from '../../components/Layout';
 import { getProducts } from '../../actions/productsActions';
 
 export default {
 
   path: '/apps',
 
-  async action({context, query}) {
+  async action({ store }) {
     if (process.env.BROWSER) {
-      setTimeout(()=>{
-        context.store.dispatch(getProducts());
+      setTimeout(() => {
+        store.dispatch(getProducts());
       }, 100);
     }
-    return <Apps/>;
+    const ProductListContainer = await require.ensure([], require => require('../../containers/ProductListContainer').default, 'apps');
+    return {
+      title: '应用管理',
+      chunk: 'apps',
+      component: <Layout><ProductListContainer /></Layout>,
+    };
   },
 
 };

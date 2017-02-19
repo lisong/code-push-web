@@ -1,25 +1,32 @@
 
 import React from 'react';
-import ChangePassword from './ChangePassword';
+import Layout from '../../components/Layout';
+import ChangePasswordContainer from '../../containers/ChangePasswordContainer';
 
-var users =  {
+const users = {
 
   path: '/users',
 
-  async action({context, query}) {
-    return <ChangePassword/>;
+  async action() {
+    return {
+      title: '修改密码 － 个人设置',
+      component: <Layout><ChangePasswordContainer /></Layout>,
+    };
   },
 
 };
 
-var settings =  {
+const settings = {
 
   path: '/users/settings',
 
-  async action({context, query}) {
-    return <ChangePassword/>;
+  async action() {
+    return {
+      title: '修改密码 － 个人设置',
+      component: <Layout><ChangePasswordContainer /></Layout>,
+    };
   },
 
 };
 
-export {users as default, settings};
+export { users as default, settings };

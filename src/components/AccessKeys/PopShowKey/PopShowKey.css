@@ -1,54 +1,63 @@
-.root {
-  width: 500px;
-  padding: 20px 0;
-  color: #000;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -165px 0 0 -238px;
-  background: #E6E6FA;
+@import '../../variables.css';
+
+:root {
+  --main-color: #3cb371;
 }
 
-.close {
+.progress {
+  font-size: 62.5%;
+  width: 60%;
+  padding: 50px 0 40px;
+  min-width: 450px;
+}
+
+.progress li {
+  float: left;
+  width: 25%;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 1.6em;
+  color: #666;
+  background-color: #ededed;
+  position: relative;
+  list-style: none;
+  display: block;
+}
+
+.progress li i {
   display: inline-block;
-  width: 32px;
-  height: 37px;
-  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-style: normal;
+  background-color: var(--main-color);
+  color: #fff;
+  margin-right: 5px;
+  line-height: 1.3;
+}
+
+.progress li em {
+  display: inline-block;
+  width: 28px;
+  height: 45px;
   background: url(./close.png) 0 0 no-repeat;
+  position: absolute;
   top: 0;
-  right: 0;
-  text-indent: -9999px;
+  right: -14px;
+  z-index: 1;
 }
 
-p input {
-  width: 300px;
-  height: 30px;
-  font-size: 1.2em;
-  border: 0px solid #ccc;
-  margin-bottom: 3px;
-  padding-left: 8px;
-  background-color: #D3D3D3;
+.progress li:last-child em {
+  display: none;
 }
 
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-      touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+.progress .current {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.progress .current i {
+  color: var(--main-color);
+  background-color: #fff;
 }
