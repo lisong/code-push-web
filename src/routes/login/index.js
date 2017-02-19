@@ -3,10 +3,12 @@ import Layout from '../../components/Layout';
 import LogoutContainer from '../../containers/LogoutContainer';
 
 const login = {
-
   path: '/login',
 
-  async action() {
+  async action({ store }) {
+    if (process.env.BROWSER) {
+
+    }
     const LoginContainer = await require.ensure([], require => require('../../containers/LoginContainer').default, 'login');
     return {
       title: '登录',
@@ -14,6 +16,7 @@ const login = {
       component: <Layout><LoginContainer /></Layout>,
     };
   },
+
 };
 
 const logout = {

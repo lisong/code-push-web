@@ -5,7 +5,12 @@ export default {
 
   path: '/register',
 
-  async action() {
+  async action({store}) {
+
+    if (process.env.BROWSER) {
+
+    }
+
     const RegisterContainer = await require.ensure([], require => require('../../containers/RegisterContainer').default, 'register');
     return {
       title: '注册',

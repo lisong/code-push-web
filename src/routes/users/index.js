@@ -6,7 +6,10 @@ const users = {
 
   path: '/users',
 
-  async action() {
+  async action({store}) {
+    if (process.env.BROWSER) {
+
+    }
     const ChangePasswordContainer = await require.ensure([], require => require('../../containers/ChangePasswordContainer').default, 'changePassword');
     return {
       title: '修改密码 － 个人设置',
@@ -21,7 +24,10 @@ const settings = {
 
   path: '/users/settings',
 
-  async action() {
+  async action({store}) {
+    if (process.env.BROWSER) {
+
+    }
     const ChangePasswordContainer = await require.ensure([], require => require('../../containers/ChangePasswordContainer').default, 'changePassword');
     return {
       title: '修改密码 － 个人设置',
