@@ -7,8 +7,6 @@ import * as usersActions from '../actions/usersActions';
 import * as authActions from '../actions/authActions';
 import * as routesActions from '../actions/routesActions';
 import AccessKeys from '../components/AccessKeys';
-import HeaderContainer from './HeaderContainer';
-import Footer from '../components/Footer';
 
 class AccessKeysContainer extends Component {
   componentDidMount() {
@@ -24,21 +22,17 @@ class AccessKeysContainer extends Component {
   render() {
     const {accessKeys, actions } = this.props;
     return (
-      <div>
-        <HeaderContainer/>
-        <AccessKeys
-          isFetching={_.get(accessKeys, 'isFetching')}
-          rs={_.get(accessKeys, 'rs')}
-          removeKey={actions.reomveAccessKey}
-          patchKey={actions.patchAccessKey}
-          isCreating={_.get(accessKeys, 'isCreating')}
-          createKey={actions.createAccessKey}
-          isShowKey={_.get(accessKeys, 'showKey.isOpen')}
-          close={actions.closePopShowKey}
-          token={_.get(accessKeys, 'showKey.token')}
-        />
-        <Footer/>
-      </div>
+      <AccessKeys
+        isFetching={_.get(accessKeys, 'isFetching')}
+        rs={_.get(accessKeys, 'rs')}
+        removeKey={actions.reomveAccessKey}
+        patchKey={actions.patchAccessKey}
+        isCreating={_.get(accessKeys, 'isCreating')}
+        createKey={actions.createAccessKey}
+        isShowKey={_.get(accessKeys, 'showKey.isOpen')}
+        close={actions.closePopShowKey}
+        token={_.get(accessKeys, 'showKey.token')}
+      />
     );
   }
 }

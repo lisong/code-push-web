@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Layout from '../../components/Layout';
+import LayoutContainer from '../../containers/LayoutContainer';
 import { getProducts } from '../../actions/productsActions';
 
 export default {
@@ -17,7 +17,7 @@ export default {
     return {
       title: '应用管理',
       chunk: 'apps',
-      component: <Layout><ProductListContainer /></Layout>,
+      component: <LayoutContainer><ProductListContainer /></LayoutContainer>,
     };
   },
 

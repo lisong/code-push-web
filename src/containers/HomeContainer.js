@@ -6,19 +6,11 @@ import _ from 'lodash';
 import * as usersActions from '../actions/usersActions';
 import * as routesActions from '../actions/routesActions';
 import Home from '../components/Home';
-import HeaderContainer from './HeaderContainer';
-import Footer from '../components/Footer';
 
 class HomeContainer extends Component {
   render() {
     const {html, actions } = this.props;
-    return (
-      <div>
-        <HeaderContainer/>
-        <Home html={html}/>
-        <Footer/>
-      </div>
-    );
+    return  <Home html={html}/>;
   }
 }
 

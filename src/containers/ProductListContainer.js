@@ -7,8 +7,6 @@ import * as usersActions from '../actions/usersActions';
 import * as authActions from '../actions/authActions';
 import * as routesActions from '../actions/routesActions';
 import ProductList from '../components/ProductList';
-import HeaderContainer from './HeaderContainer';
-import Footer from '../components/Footer';
 
 class ProductListContainer extends Component {
   componentDidMount() {
@@ -24,14 +22,10 @@ class ProductListContainer extends Component {
   render() {
     const {products, actions } = this.props;
     return (
-      <div>
-        <HeaderContainer/>
-        <ProductList
-          isFetching={_.get(products, 'isFetching')}
-          rs={_.get(products, 'rs')}
-        />
-        <Footer/>
-      </div>
+      <ProductList
+        isFetching={_.get(products, 'isFetching')}
+        rs={_.get(products, 'rs')}
+      />
     );
   }
 }

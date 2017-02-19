@@ -7,8 +7,6 @@ import * as usersActions from '../actions/usersActions';
 import * as authActions from '../actions/authActions';
 import * as routesActions from '../actions/routesActions';
 import ChangePassword from '../components/ChangePassword';
-import HeaderContainer from './HeaderContainer';
-import Footer from '../components/Footer';
 
 class ChangePasswordContainer extends Component {
   componentDidMount() {
@@ -27,21 +25,17 @@ class ChangePasswordContainer extends Component {
     let oldPassword = _.get(password, 'oldPassword');
     let newPassword = _.get(password, 'newPassword');
     return (
-      <div>
-        <HeaderContainer/>
-        <ChangePassword
-          isFetching={_.get(password, 'isFetching')}
-          oldPassword={oldPassword}
-          oldPasswordInputChange={actions.passwordChangeOldInput}
-          newPassword={newPassword}
-          newPasswordInputChange={actions.passwordChangeNewInput}
-          newPasswordConfirm={_.get(password, 'newPasswordConfirm')}
-          newPasswordConfirmInputChange={actions.passwordChangeNewConfirmInput}
-          submit={()=>actions.modifyPassword(oldPassword, newPassword)}
-          error={_.get(password, 'error')}
-        />
-        <Footer/>
-      </div>
+      <ChangePassword
+        isFetching={_.get(password, 'isFetching')}
+        oldPassword={oldPassword}
+        oldPasswordInputChange={actions.passwordChangeOldInput}
+        newPassword={newPassword}
+        newPasswordInputChange={actions.passwordChangeNewInput}
+        newPasswordConfirm={_.get(password, 'newPasswordConfirm')}
+        newPasswordConfirmInputChange={actions.passwordChangeNewConfirmInput}
+        submit={()=>actions.modifyPassword(oldPassword, newPassword)}
+        error={_.get(password, 'error')}
+      />
     );
   }
 }

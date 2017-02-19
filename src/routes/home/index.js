@@ -9,9 +9,8 @@
 
 import React from 'react';
 import fetch from '../../core/fetch';
-import Layout from '../../components/Layout';
+import LayoutContainer from '../../containers/LayoutContainer';
 import restApi from '../../network/RestApi';
-import HomeContainer from '../../containers/HomeContainer';
 
 export default {
 
@@ -28,9 +27,11 @@ export default {
     });
     if (resp.status !== 200) throw new Error(resp.statusText);
     const data = await resp.text();
+    const HomeContainer = await require.ensure([], require => require('../../containers/HomeContainer').default, 'home');
     return {
       title: 'CodePushServer',
-      component: <Layout><HomeContainer html={data} /></Layout>,
+      chunk: 'home',
+      component: <LayoutContainer><HomeContainer html={data} /></LayoutContainer>,
     };
   },
 

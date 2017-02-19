@@ -1,6 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout';
-import AccessKeysContainer from '../../containers/AccessKeysContainer';
+import LayoutContainer from '../../containers/LayoutContainer';
 import { fetchAccessKeys } from '../../actions/authActions';
 
 export default {
@@ -13,9 +12,11 @@ export default {
         store.dispatch(fetchAccessKeys());
       }, 100);
     }
+    const AccessKeysContainer = await require.ensure([], require => require('../../containers/AccessKeysContainer').default, 'accessKeys');
     return {
       title: '我的密钥',
-      component: <Layout><AccessKeysContainer /></Layout>,
+      chunk: 'accessKeys',
+      component: <LayoutContainer><AccessKeysContainer /></LayoutContainer>,
     };
   },
 
