@@ -6,7 +6,7 @@ import Link from '../Link';
 
 function Footer() {
   return (
-    <div className={s.root}>
+    <footer className={s.root}>
       <div className={s.container}>
         <span className={s.text}>© CodePush Server</span>
         <span className={s.spacer}>·</span>
@@ -14,7 +14,7 @@ function Footer() {
         <span className={s.spacer}>·</span>
         <a className={s.link} target="_blank" href="https://github.com/lisong/code-push-server/issues/new">Report an issue</a>
       </div>
-    </div>
+    </footer>
   );
 }
 

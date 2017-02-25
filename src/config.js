@@ -3,8 +3,6 @@
 export const port = process.env.PORT || 3001;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
-export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
-
 export const analytics = {
 
   // https://analytics.google.com/

@@ -1,10 +1,14 @@
 
 import React, {PropTypes, Component} from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import _ from 'lodash';
+import {
+  Navbar,
+} from 'react-bootstrap';
 import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
-import logoUrl from './logo-small.png';
+
 
 class Header extends Component {
   static propTypes = {
@@ -19,19 +23,17 @@ class Header extends Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          {
-            !this.props.noNav ?
-            <Navigation isAuth={this.props.isAuth} className={s.nav} />
-            : null
-          }
+      <Navbar style={{fontWeight:400}} inverse collapseOnSelect>
+        <Navbar.Header>
+          <Navbar.Brand>
           <Link className={s.brand} to="/">
-            <img src={logoUrl} width="38" height="38" alt="React" />
-            <span className={s.brandTxt}>CodePush Server</span>
+            <span>CodePush Server</span>
           </Link>
-        </div>
-      </div>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        {_.get(this.props, 'noNav') !== true ? <Navigation isAuth={_.get(this.props, 'isAuth')}/> : null}
+      </Navbar>
     );
   }
 }

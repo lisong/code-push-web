@@ -1,9 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Login.css';
+import {
+  Col,
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Checkbox,
+  Button,
+} from 'react-bootstrap';
 import Link from '../Link';
-import Button from '../Button';
 
 class Login extends Component {
   static propTypes = {
@@ -36,61 +43,75 @@ class Login extends Component {
     }
     this.props.submit();
   }
+
   setInputAccount(event) {
     this.props.accountInputChange(event.target.value);
   }
+
   setInputPassword(event) {
     this.props.passwordInputChange(event.target.value);
   }
+
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>登录</h1>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="usernameOrEmail">
-              请输入邮箱地址:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setInputAccount}
-              id="usernameOrEmail"
-              type="text"
-              value={this.props.account}
-              placeholder="请输入邮箱地址"
-              autoFocus
+      <Form style={{ height:600 }} horizontal>
+        <br/>
+        <FormGroup>
+          <Col smOffset={3}>
+            <h1>请登录</h1>
+          </Col>
+        </FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={3}>
+            邮箱地址
+          </Col>
+          <Col sm={4}>
+            <FormControl
+            onChange={this.setInputAccount}
+            value={this.props.account}
+            type="email"
+            placeholder="请输入邮箱地址"
+            autoFocus
             />
-          </div>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="password">
-              请输入登录密码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setInputPassword}
-              id="password"
-              type="password"
-              value={this.props.password}
-              placeholder="请输入登录密码"
+          </Col>
+        </FormGroup>
+
+        <FormGroup controlId="formHorizontalPassword">
+          <Col componentClass={ControlLabel} sm={3}>
+            登录密码
+          </Col>
+          <Col sm={4}>
+            <FormControl
+            onChange={this.setInputPassword}
+            value={this.props.password}
+            type="password"
+            placeholder="请输入登录密码"
             />
-          </div>
-          <div className={s.formGroup}>
-            <p className={s.errorTips}>{_.get(this.props, 'error.errorMessage')}</p>
-          </div>
-          <div className={s.formGroup}>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col smOffset={3} sm={4} style={{ color:'red' }} >
+          {_.get(this.props, 'error.errorMessage')}
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col smOffset={3} sm={2}>
             <Button
-              style={this.props.isFetching ? { backgroundColor:'grey' } : null }
               onClick={this.submit}
-              value="登录"
-              />
-          </div>
-          <div className={s.registerText}>
-            <span style={{ float:'left' }}>没有账号?</span>
-            <Link className={s.registerLink} to="/register">立即注册</Link>
-          </div>
-        </div>
-      </div>
+              disabled={this.props.isFetching}
+            >
+              登录
+            </Button>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col smOffset={3} sm={4}>
+            <span style={{ marginRight:"20px" }}>还没有账号?</span>
+            <Link to="/register">立即注册</Link>
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }
-export default withStyles(s)(Login);
+export default Login;

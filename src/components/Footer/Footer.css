@@ -1,8 +1,13 @@
 @import '../variables.css';
 
 .root {
-  background: #333;
-  color: #fff;
+  position: absolute;
+  /*bottom: 0;*/
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #222;
+  border-color: #080808;
 }
 
 .container {
@@ -14,11 +19,6 @@
 
 .text {
   color: rgba(255, 255, 255, 0.5);
-}
-
-.textMuted {
-  composes: text;
-  color: rgba(255, 255, 255, 0.3);
 }
 
 .spacer {

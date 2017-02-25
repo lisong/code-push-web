@@ -20,6 +20,7 @@ export default {
     require('./login').default,
     require('./login').logout,
     require('./apps').default,
+    require('./apps').deployments,
     require('./accessKeys').default,
     require('./users').default,
     require('./users').settings,

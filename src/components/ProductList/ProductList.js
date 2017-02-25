@@ -53,7 +53,7 @@ class ProductList extends Component {
             {
             _.map(_.get(rowData, 'deployments'), (item, email) => (
               <li key={email} style={item === 'Production' ? { color: 'green' } : null} >
-                <Link to={`/${appName}/${item}`}>{item}</Link>
+                <Link to={`/apps/${appName}/${item}`}>{item}</Link>
               </li>
               ))
           }
