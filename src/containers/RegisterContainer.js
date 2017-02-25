@@ -15,7 +15,7 @@ class RegisterContainer extends Component {
     let validateCode = _.get(register, 'validateCode');
     return (
       <div>
-        <Header noNav={true}/>
+        <Header/>
         <Register
           step={_.get(register, 'step', 1)}
           registerClean={actions.registerClean}

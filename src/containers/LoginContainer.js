@@ -27,7 +27,7 @@ class LoginContainer extends Component {
     const {login, actions } = this.props;
     return (
       <div>
-        <Header noNav={true}/>
+        <Header/>
         <Login
           isFetching={_.get(login, 'isFetching')}
           account={_.get(login, 'account')}
