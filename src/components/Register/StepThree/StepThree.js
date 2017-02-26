@@ -1,8 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './StepThree.css';
-import Button from '../../Button';
+import {
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
 
 class StepThree extends Component {
   static propTypes = {
@@ -43,7 +47,7 @@ class StepThree extends Component {
   }
 
   render() {
-    let self = this;
+    const self = this;
     let passwordTips = '';
     let passwordConfirmTips = '';
     if (this.state.field1 && this.props.password.length < 6) {
@@ -57,56 +61,68 @@ class StepThree extends Component {
       && _.eq(this.props.passwordConfirm, this.props.password)) {
       isValidate = true;
     }
+    var disabled = true;
+    if (!this.props.isFetching && isValidate){
+        disabled = false;
+    }
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="password">
-              密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setInputPassword}
-              onBlur={()=>this.setState({field1: true})}
-              id="password"
-              type="password"
-              value={this.props.password}
-              placeholder="请输入密码"
-              autoFocus
+      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+        <FormGroup>
+          <ControlLabel>密码</ControlLabel>
+          <FormControl
+            onChange={this.setInputPassword}
+            onBlur={()=>this.setState({field1: true})}
+            value={this.props.password}
+            type="password"
+            placeholder="请输入密码"
+            autoComplete="off"
+            autoFocus
             />
+        </FormGroup>
+        <FormGroup>
+          <div style={{ color:'red' }} >
+          {passwordTips}
           </div>
-          <div className={s.errorTip}>{passwordTips}</div>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="passwordConfirm">
-              确认密码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setInputPasswordConfirm}
-              onBlur={()=>this.setState({field2: true})}
-              id="passwordConfirm"
-              type="password"
-              value={this.props.passwordConfirm}
-              placeholder="请再次输入密码"
+        </FormGroup>
+
+        <FormGroup>
+          <ControlLabel>确认密码</ControlLabel>
+          <FormControl
+            onChange={this.setInputPasswordConfirm}
+            onBlur={()=>this.setState({field2: true})}
+            type="password"
+            value={this.props.passwordConfirm}
+            placeholder="请再次输入密码"
+            autoComplete="off"
             />
+        </FormGroup>
+        <FormGroup>
+          <div style={{ color:'red' }} >
+          {passwordConfirmTips}
           </div>
-          <div className={s.errorTip}>{passwordConfirmTips}</div>
-          <br/>
-          <div className={s.errorTip2}>{_.get(this.props, 'error.message')}</div>
-          <div className={s.formGroup}>
-            <Button
-              style={this.props.isFetching || !isValidate ? { backgroundColor:'grey' } : null }
-              value="注册"
-              onClick={()=>{
-                if (self.props.isFetching || !isValidate) {
-                  return;
-                }
-                self.props.submit();
-              }}/>
+        </FormGroup>
+        <FormGroup style={{ paddingTop: 20 }}>
+          <div style={{ color:'red' }} >
+          {_.get(this.props, 'error.message')}
           </div>
-        </div>
-      </div>
+        </FormGroup>
+        <FormGroup>
+          <Button
+            style={{width: "100%"}}
+            bsStyle="primary"
+            onClick={()=>{
+              if (disabled) {
+                return;
+              }
+              self.props.submit();
+            }}
+            disabled={disabled}
+          >
+          注册
+          </Button>
+        </FormGroup>
+      </Form>
     );
   }
 }
-export default withStyles(s)(StepThree);
+export default StepThree;

@@ -31,8 +31,8 @@ class NavStep extends Component {
               className={self.props.step == _.get(item, 'key') ? s.current : null}
               >
               <i>{_.get(item, 'key')}</i>
-              {_.get(item, 'text')}
-              <em/>
+              <span>{_.get(item, 'text')}</span>
+              <em><img src={require('./arrow.png')} /></em>
             </li>
           )
         })

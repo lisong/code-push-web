@@ -1,9 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './StepTwo.css';
-import Button from '../../Button';
+import {
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Button,
+  Col,
+  Alert,
+} from 'react-bootstrap';
 import Countdown from '../../Countdown';
 
 class StepTwo extends Component {
@@ -45,14 +51,18 @@ class StepTwo extends Component {
   }
 
   render() {
-    let self = this;
+    const self = this;
     let leftTime = 120 - (parseInt(moment().format('X')) - this.props.lastSendTime);
     let isValidate = this.props.validateCode ? true : false;
+    var disabled = true;
+    if (!this.props.isChecking && isValidate){
+        disabled = false;
+    }
     let countDownView = (
       <Countdown
         leftTime={leftTime<0 ? 0 : leftTime}
         renderFunc={({second})=>{
-          return <span className={s.countDown}>{second}</span>
+          return <Button disabled>{second}</Button>
         }}
         renderRetryFunc={(times)=>{
           let sendText = '发送邮件';
@@ -60,11 +70,10 @@ class StepTwo extends Component {
             sendText = '重新发送';
           }
           if (self.props.isSending) {
-            return <span className={s.countDown}>发送中</span>
+            return <Button disabled>发送中</Button>
           }
           return (
-            <span
-              className={s.sendBtn}
+            <Button
               onClick={()=>{
                 if (!self.props.isSending) {
                   self.props.sendValidateCode();
@@ -72,49 +81,55 @@ class StepTwo extends Component {
               }}
               >
             {sendText}
-            </span>
+            </Button>
           )
         }}
       />
-    )
+    );
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <div className={s.warning}>
-            请您登录邮箱，查看验证码
-          </div>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="validateCode">
-              验证码:
-            </label>
-            <input
-              className={s.input}
+      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+        <FormGroup>
+          <Alert bsStyle="warning">
+            请登录邮箱，查看验证码!
+          </Alert>
+        </FormGroup>
+        <FormGroup>
+          <Col sm={8} style={{ marginBottom:10}} >
+            <FormControl
               onChange={this.setInputValidateCode}
-              id="validateCode"
-              type="text"
               value={this.props.validateCode}
+              type="text"
               placeholder="请输入接收到的验证码"
               autoComplete="off"
               autoFocus
-            />
-            {countDownView}
+              />
+          </Col>
+          <Col sm={4} style={{ marginBottom:10 }} >
+          {countDownView}
+          </Col>
+        </FormGroup>
+        <FormGroup style={{ paddingTop: 20 }}>
+          <div style={{ color:'red', paddingLeft:15 }} >
+          {_.get(this.props, 'error.message')}
           </div>
-          <br/>
-          <div className={s.errorTip}>{_.get(this.props, 'error.message')}</div>
-          <div className={s.formGroup}>
-            <Button
-              style={this.props.isChecking || !isValidate ? { backgroundColor:'grey' } : null }
-              value="下一步"
-              onClick={()=>{
-                if (self.props.isChecking || !isValidate) {
-                  return;
-                }
-                self.props.submit();
-              }}/>
-          </div>
-        </div>
-      </div>
+        </FormGroup>
+        <FormGroup style={{ textAlign: "center", paddingTop: 20 }}>
+          <Button
+            style={{width: "100%"}}
+            bsStyle="primary"
+            onClick={()=>{
+              if (disabled) {
+                return;
+              }
+              self.props.submit();
+            }}
+            disabled={disabled}
+          >
+          下一步
+          </Button>
+        </FormGroup>
+      </Form>
     );
   }
 }
-export default withStyles(s)(StepTwo);
+export default StepTwo;

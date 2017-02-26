@@ -1,10 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './StepOne.css';
-import Button from '../../Button';
-import Link from '../../Link';
 import validator from 'validator';
+import {
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
+import Link from '../../Link';
 
 class StepOne extends Component {
   static propTypes = {
@@ -31,48 +35,51 @@ class StepOne extends Component {
   setInputEmail(event) {
     this.props.emailInputChange(event.target.value);
   }
-
   render() {
-    let self = this;
+    const self = this;
     var emailIsValidate = validator.isEmail(this.props.email);
+    var disabled = true;
+    if (!this.props.isChecking && emailIsValidate){
+        disabled = false;
+    }
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="email">
-              邮箱地址:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setInputEmail}
-              id="email"
-              type="text"
-              value={this.props.email}
-              placeholder="请输入邮箱地址"
-              autoComplete="off"
-              autoFocus
+      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+        <FormGroup controlId="formHorizontalEmail">
+          <ControlLabel>邮箱地址</ControlLabel>
+          <FormControl
+            onChange={this.setInputEmail}
+            value={this.props.email}
+            type="email"
+            placeholder="请输入邮箱地址"
+            autoComplete="off"
+            autoFocus
             />
+        </FormGroup>
+        <FormGroup style={{ paddingTop: 20 }}>
+          <div style={{ color:'red' }} >
+          {_.get(this.props, 'error.message')}
           </div>
-          <div className={s.errorTip}>{_.get(this.props, 'error.message')}</div>
-          <div className={s.formGroup}>
-            <Button
-              style={this.props.isChecking || !emailIsValidate ? { backgroundColor:'grey' } : null }
-              value="下一步"
-              onClick={()=>{
-                if (self.props.isChecking || !emailIsValidate) {
-                  return;
-                }
-                self.props.submit();
-              }}/>
-          </div>
-          <div className={s.loginBtn}>
-            <Link to="/login">
-              已有帐号
-            </Link>
-          </div>
-        </div>
-      </div>
+        </FormGroup>
+        <FormGroup>
+          <Button
+            style={{width: "100%"}}
+            bsStyle="primary"
+            onClick={()=>{
+              if (disabled) {
+                return;
+              }
+              self.props.submit();
+            }}
+            disabled={disabled}
+          >
+          下一步
+          </Button>
+        </FormGroup>
+        <FormGroup style={{ paddingTop: 28, textAlign: 'center' }}>
+          <Link to="/login">已有帐号</Link>
+        </FormGroup>
+      </Form>
     );
   }
 }
-export default withStyles(s)(StepOne);
+export default StepOne;

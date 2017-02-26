@@ -8,6 +8,7 @@ import {
   FormControl,
   Checkbox,
   Button,
+  Panel,
 } from 'react-bootstrap';
 import Link from '../Link';
 
@@ -53,63 +54,50 @@ class Login extends Component {
 
   render() {
     return (
-      <Form style={{ height:600, paddingLeft: 20, paddingRight:20 }} horizontal>
-        <br/>
-        <FormGroup>
-          <Col smOffset={2}>
-            <h1>请登录</h1>
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={2}>
-            邮箱地址
-          </Col>
-          <Col sm={4}>
-            <FormControl
-            onChange={this.setInputAccount}
-            value={this.props.account}
-            type="email"
-            placeholder="请输入邮箱地址"
-            autoFocus
-            />
-          </Col>
-        </FormGroup>
-
-        <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass={ControlLabel} sm={2}>
-            登录密码
-          </Col>
-          <Col sm={4}>
-            <FormControl
-            onChange={this.setInputPassword}
-            value={this.props.password}
-            type="password"
-            placeholder="请输入登录密码"
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={2} sm={4} style={{ color:'red' }} >
-          {_.get(this.props, 'error.errorMessage')}
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={2} sm={2}>
-            <Button
-              onClick={this.submit}
-              disabled={this.props.isFetching}
-            >
-              登录
-            </Button>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={2} sm={4}>
-            <span style={{ marginRight:"20px" }}>还没有账号?</span>
-            <Link to="/register">立即注册</Link>
-          </Col>
-        </FormGroup>
-      </Form>
+      <div style={{height:650, paddingLeft: 20, paddingRight:20 }}>
+        <Panel header="登录" style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+          <Form>
+            <FormGroup controlId="formHorizontalEmail">
+              <ControlLabel>邮箱地址</ControlLabel>
+              <FormControl
+                onChange={this.setInputAccount}
+                value={this.props.account}
+                type="email"
+                placeholder="请输入邮箱地址"
+                autoFocus
+                />
+            </FormGroup>
+            <FormGroup controlId="formHorizontalPassword">
+              <ControlLabel>密码</ControlLabel>
+              <FormControl
+                onChange={this.setInputPassword}
+                value={this.props.password}
+                type="password"
+                placeholder="请输入登录密码"
+              />
+            </FormGroup>
+            <FormGroup style={{ paddingTop: 20 }}>
+              <div style={{ color:'red' }} >
+              {_.get(this.props, 'error.errorMessage')}
+              </div>
+            </FormGroup>
+            <FormGroup>
+              <Button
+                style={{width: "100%"}}
+                bsStyle="primary"
+                onClick={this.submit}
+                disabled={this.props.isFetching}
+              >
+              {this.props.isFetching ? '登录中...' : '登录'}
+              </Button>
+            </FormGroup>
+            <FormGroup style={{ paddingTop: 28 }}>
+              <span style={{ marginRight: 20 }}>还没有账号?</span>
+              <Link to="/register">立即注册</Link>
+            </FormGroup>
+          </Form>
+        </Panel>
+      </div>
     );
   }
 }
