@@ -1,19 +1,17 @@
 
 import React, { PropTypes, Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './PopShowKey.css';
-import cx from 'classnames';
-import _ from 'lodash';
-import Modal from '../../Modal';
+import {Modal, Button, FormGroup, FormControl, HelpBlock} from 'react-bootstrap';
 
 class PopShowKey extends Component {
   static propTypes = {
     value: PropTypes.string,
     close: PropTypes.func,
+    showModal: PropTypes.bool,
   };
 
   static defaultProps = {
     value: '',
+    showModal: false,
     close: ()=>{},
   };
 
@@ -28,29 +26,34 @@ class PopShowKey extends Component {
 
   render() {
     return (
-      <Modal>
-        <div className={s.root}>
-          <a href="javascript:;" onClick={this.close} className={s.close}>x</a>
-          <h3>复制下面的密钥, 然后关闭弹框</h3>
-          <p>
-            <input
-            value={this.props.value}
-            onFocus={(event)=>{
-              event.target.select();
-            }}
-            onClick={(event)=>{
-              event.target.select();
-            }}
-            onMouseOver={(event)=>{
-              event.target.select();
-            }}
-            readOnly
+      <Modal show={this.props.showModal} onHide={this.close}>
+        <Modal.Header closeButton>
+          <Modal.Title>创建密钥成功</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FormGroup validationState="success">
+            <FormControl
+              value={this.props.value}
+              onFocus={(event)=>{
+                event.target.select();
+              }}
+              onClick={(event)=>{
+                event.target.select();
+              }}
+              onMouseOver={(event)=>{
+                event.target.select();
+              }}
+              readOnly
+              type="text"
             />
-          </p>
-          <p><button className={s.btn} onClick={this.close} >关闭</button></p>
-        </div>
+            <HelpBlock>复制上面的密钥, 然后关闭弹框</HelpBlock>
+          </FormGroup>
+        </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>关闭</Button>
+          </Modal.Footer>
       </Modal>
     )
   }
 }
-export default withStyles(s)(PopShowKey);
+export default PopShowKey;

@@ -1,11 +1,17 @@
 
 import React, { PropTypes, Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './ChangePassword.css';
+import {
+  Col,
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Checkbox,
+  Button,
+  Panel,
+} from 'react-bootstrap';
+
 import _ from 'lodash';
-import Link from '../Link';
-import Button from '../Button';
-import moment from 'moment';
 
 class ChangePassword extends Component {
   static propTypes = {
@@ -53,7 +59,7 @@ class ChangePassword extends Component {
   }
 
   render() {
-    let self = this;
+    const self = this;
     let isValidate = true;
     let oldPasswordTips = '';
     if (!this.props.oldPassword) {
@@ -69,88 +75,96 @@ class ChangePassword extends Component {
       isValidate = false;
       newPasswordConfirmTips = '两次输入的密码不一致'
     }
-
+    var disabled = true;
+    if (!this.props.isFetching && isValidate){
+        disabled = false;
+    }
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="oldPassword">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旧密码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setOldPassword}
-              id="oldPassword"
-              type="password"
-              value={this.props.oldPassword}
-              placeholder="请输入旧密码"
-              autoFocus
-              onBlur={()=>this.setState({field1: true})}
-            />
-          </div>
-          {
-            this.state.field1 ?
-            <div className={s.errorTip}>{oldPasswordTips}</div>
-            : null
-          }
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="newPassword">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setNewPassword}
-              id="newPassword"
-              type="password"
-              value={this.props.newPassword}
-              placeholder="请您输入新的密码"
-              onBlur={()=>this.setState({field2: true})}
-            />
-          </div>
-          {
-            this.state.field2 ?
-            <div className={s.errorTip}>{newPasswordTips}</div>
-            : null
-          }
-          <div className={s.formGroup}>
-            <label className={s.label} htmlFor="newPasswordConfirm">
-              确认新密码:
-            </label>
-            <input
-              className={s.input}
-              onChange={this.setNewPasswordConfirm}
-              id="newPasswordConfirm"
-              type="password"
-              value={this.props.newPasswordConfirm}
-              placeholder="请您再次输入新的密码"
-              onBlur={()=>this.setState({field3: true})}
-            />
-          </div>
-          {
-            this.state.field3 ?
-            <div className={s.errorTip}>{newPasswordConfirmTips}</div>
-            : null
-          }
-          <br/>
-          <div className={s.errorTip}>{_.get(this.props, 'error.message')}</div>
-          <div className={s.formGroup}>
-            <Button
-              style={
-                this.props.isFetching || !isValidate ?
-                { width:'71%', marginLeft: '27%', backgroundColor:'grey' }
-                : { width:'71%', marginLeft: '27%' }
+      <div style={{height:650, paddingLeft: 20, paddingRight:20 }}>
+        <Panel header="修改密码" style={{ maxWidth:350, marginLeft:"auto", marginRight: "auto" }}>
+          <Form>
+            <FormGroup>
+              <ControlLabel>原密码</ControlLabel>
+              <FormControl
+                onChange={this.setOldPassword}
+                type="password"
+                value={this.props.oldPassword}
+                placeholder="请输入原密码"
+                onBlur={()=>this.setState({field1: true})}
+                autoFocus
+                />
+            </FormGroup>
+            <FormGroup>
+              <div style={{ color:'red' }} >
+              {
+                this.state.field1 ?
+                oldPasswordTips
+                : null
               }
-              value="确认"
-              onClick={()=>{
-                if (self.props.isFetching || !isValidate) {
-                  return;
-                }
-                self.props.submit();
-              }}/>
-          </div>
-        </div>
+              </div>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>新密码</ControlLabel>
+              <FormControl
+                onChange={this.setNewPassword}
+                type="password"
+                value={this.props.newPassword}
+                placeholder="请您输入新的密码"
+                onBlur={()=>this.setState({field2: true})}
+              />
+            </FormGroup>
+            <FormGroup>
+              <div style={{ color:'red' }} >
+              {
+                this.state.field2 ?
+                newPasswordTips
+                : null
+              }
+              </div>
+            </FormGroup>
+             <FormGroup>
+              <ControlLabel>确认新密码</ControlLabel>
+              <FormControl
+                onChange={this.setNewPasswordConfirm}
+                type="password"
+                value={this.props.newPasswordConfirm}
+                placeholder="请您再次输入新的密码"
+                onBlur={()=>this.setState({field3: true})}
+              />
+            </FormGroup>
+            <FormGroup>
+              <div style={{ color:'red' }} >
+              {
+                this.state.field3 ?
+                newPasswordConfirmTips
+                : null
+              }
+              </div>
+            </FormGroup>
+            <FormGroup style={{ paddingTop: 20 }}>
+              <div style={{ color:'red' }} >
+              {_.get(this.props, 'error.message')}
+              </div>
+            </FormGroup>
+            <FormGroup>
+              <Button
+                style={{width: "100%"}}
+                bsStyle="primary"
+                disabled={disabled}
+                onClick={()=>{
+                  if (disabled) {
+                    return;
+                  }
+                  self.props.submit();
+                }}
+              >
+              确认
+              </Button>
+            </FormGroup>
+          </Form>
+        </Panel>
       </div>
     );
   }
 }
-export default withStyles(s)(ChangePassword);
+export default ChangePassword;

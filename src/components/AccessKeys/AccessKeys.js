@@ -1,5 +1,6 @@
 
 import React, { PropTypes, Component } from 'react';
+import {Breadcrumb, Table, Button} from 'react-bootstrap';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './AccessKeys.css';
 import cx from 'classnames';
@@ -58,12 +59,12 @@ class AccessKeys extends Component {
         <td>{moment(_.get(rowData, 'createdTime')).fromNow()}</td>
         <td>{moment(_.get(rowData, 'expires')).fromNow()}</td>
         <td>
-        <button
+        <Button
           onClick={()=>{self.props.removeKey(_.get(rowData, 'friendlyName'))}}
-          className={cx(s.btn,s.btnDanger)}
+          bsStyle="danger"
           >
           移除
-        </button>
+        </Button>
         </td>
       </tr>
     );
@@ -77,36 +78,41 @@ class AccessKeys extends Component {
     }
     return (
       <div className={s.root}>
-      {
-        this.props.isShowKey ?
         <PopShowKey
-        value={this.props.token}
-        close={this.props.close}
+          showModal={this.props.isShowKey}
+          value={this.props.token}
+          close={this.props.close}
         />
-        : null
-      }
         <div className={s.container}>
-          <h1>密钥列表</h1>
+          <Breadcrumb>
+          <Breadcrumb.Item active={true}>
+            密钥列表
+          </Breadcrumb.Item>
+          </Breadcrumb>
           <span style={{ float:'right', marginBottom:'20px', marginRight:'20px' }}>
-            <button
+            <Button
               onClick={()=>{
                 self.props.createKey();
               }}
-              className={cx(s.btn,s.btnPrimary)} disabled={this.props.isCreating ? true:false  } >
+              bsStyle="primary"
+              disabled={this.props.isCreating ? true:false  }
+            >
               创建key
-            </button>
+            </Button>
           </span>
-          <table>
-            <tbody>
+          <Table striped bordered condensed hover>
+            <thead>
               <tr>
-                <th>名字</th>
-                <th>创建者</th>
-                <th>类型</th>
-                <th>创建时间</th>
-                <th>过期时间</th>
-                <th>操作</th>
+                <th style={{ textAlign:'center' }} >名字</th>
+                <th style={{ textAlign:'center' }} >创建者</th>
+                <th style={{ textAlign:'center' }} >类型</th>
+                <th style={{ textAlign:'center' }} >创建时间</th>
+                <th style={{ textAlign:'center' }} >过期时间</th>
+                <th style={{ textAlign:'center' }} >操作</th>
               </tr>
-               {
+            </thead>
+            <tbody>
+              {
                  this.props.rs.length > 0 ?
                  _.map(this.props.rs, function (item, index) {
                    return self.renderRow(item, index);
@@ -117,7 +123,7 @@ class AccessKeys extends Component {
                  </tr>
                }
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );

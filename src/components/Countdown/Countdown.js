@@ -1,5 +1,4 @@
 import React, {PropTypes, Component} from 'react';
-import moment from 'moment';
 import _ from 'lodash';
 
 export default class Countdown extends Component {

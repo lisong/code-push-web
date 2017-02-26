@@ -55,9 +55,9 @@ class Login extends Component {
   render() {
     return (
       <div style={{height:650, paddingLeft: 20, paddingRight:20 }}>
-        <Panel header="登录" style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+        <Panel header="登录" style={{ maxWidth:350, marginLeft:"auto", marginRight: "auto" }}>
           <Form>
-            <FormGroup controlId="formHorizontalEmail">
+            <FormGroup>
               <ControlLabel>邮箱地址</ControlLabel>
               <FormControl
                 onChange={this.setInputAccount}
@@ -67,7 +67,7 @@ class Login extends Component {
                 autoFocus
                 />
             </FormGroup>
-            <FormGroup controlId="formHorizontalPassword">
+            <FormGroup>
               <ControlLabel>密码</ControlLabel>
               <FormControl
                 onChange={this.setInputPassword}

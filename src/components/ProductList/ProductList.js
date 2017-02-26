@@ -1,5 +1,6 @@
 
 import React, { PropTypes, Component } from 'react';
+import {Breadcrumb, Table} from 'react-bootstrap';
 import cx from 'classnames';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -70,25 +71,31 @@ class ProductList extends Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>应用列表</h1>
-          <table>
-            <tbody>
-              <tr>
-                <th width="15%">产品名</th>
-                <th width="45%">成员</th>
-                <th width="20%">Deployments</th>
-                <th width="20%">操作</th>
-              </tr>
-              {
-                 this.props.rs.length > 0 ?
-                 _.map(this.props.rs, (item, index) => self.renderRow(item, index))
-                 :
-                 <tr>
-                   <td colSpan="4" >{tipText}</td>
-                 </tr>
-               }
-            </tbody>
-          </table>
+        <Breadcrumb>
+          <Breadcrumb.Item active={true}>
+            应用列表
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th style={{ textAlign:'center' }} >产品名</th>
+              <th style={{ textAlign:'center' }} >成员</th>
+              <th style={{ textAlign:'center' }} >Deployments</th>
+              <th style={{ textAlign:'center' }} >操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+             this.props.rs.length > 0 ?
+             _.map(this.props.rs, (item, index) => self.renderRow(item, index))
+             :
+             <tr>
+               <td colSpan="4" >{tipText}</td>
+             </tr>
+            }
+          </tbody>
+        </Table>
         </div>
       </div>
     );
