@@ -2,6 +2,7 @@
 import React from 'react';
 import LayoutContainer from '../../containers/LayoutContainer';
 import { getProducts } from '../../actions/productsActions';
+import _ from 'lodash';
 
 const apps = {
 
@@ -32,13 +33,32 @@ const deployments = {
       //   store.dispatch(getProducts());
       // }, 100);
     }
+    var appName = _.get(params, 'appName');
+    var deploymentName = _.get(params, 'deploymentName');
     const DeploymentContainer = await require.ensure([], require => require('../../containers/DeploymentContainer').default, 'deployment');
     return {
-      title: '应用管理',
+      title: `${deploymentName} ${appName}`,
       chunk: 'deployment',
-      component: <LayoutContainer><DeploymentContainer /></LayoutContainer>,
+      component: <LayoutContainer><DeploymentContainer appName={appName} deploymentName={deploymentName} /></LayoutContainer>,
     };
   },
 };
 
-export {apps as default, deployments}
+const appDetails = {
+  path: '/apps/:appName',
+
+  async action({store, params}) {
+    if (process.env.BROWSER) {
+
+    }
+    var appName = _.get(params, 'appName');
+    const ProductContainer = await require.ensure([], require => require('../../containers/ProductContainer').default, 'product');
+    return {
+      title: `${appName} 详情`,
+      chunk: 'product',
+      component: <LayoutContainer><ProductContainer appName={appName} /></LayoutContainer>,
+    };
+  }
+}
+
+export {apps as default, deployments, appDetails}

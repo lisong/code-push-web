@@ -1,0 +1,6 @@
+{
+  "name": "Deployment",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Deployment.js"
+}

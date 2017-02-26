@@ -1,17 +1,20 @@
 
 import React, { PropTypes, Component } from 'react';
-import {Breadcrumb, Table} from 'react-bootstrap';
+import {Breadcrumb, Table, Button, Col} from 'react-bootstrap';
 import cx from 'classnames';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ProductList.css';
 import Link from '../Link';
+import PopAddApp from './PopAddApp';
 
 class ProductList extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     rs: PropTypes.array,
   };
+
+  popAddApp:PopAddApp = null;
 
   static defaultProps = {
     isFetching: true,
@@ -22,12 +25,13 @@ class ProductList extends Component {
     super();
     this.renderRow = this.renderRow.bind(this);
   }
-
   renderRow(rowData, index) {
     const appName = _.get(rowData, 'name');
     return (
       <tr key={index}>
-        <td>{appName}</td>
+        <td>
+          <Link to={`/apps/${appName}`}>{appName}</Link>
+        </td>
         <td style={{ textAlign: 'left' }}>
           <ul>
             {
@@ -70,12 +74,27 @@ class ProductList extends Component {
     const tipText = '暂无数据';
     return (
       <div className={s.root}>
+        <PopAddApp
+          ref={(popAddApp) => { this.popAddApp = popAddApp; }}
+          value={this.props.token}
+          close={this.props.close}
+        />
         <div className={s.container}>
         <Breadcrumb>
           <Breadcrumb.Item active={true}>
             应用列表
           </Breadcrumb.Item>
         </Breadcrumb>
+        <Col style={{marginBottom:'20px'}}>
+          <Button
+            onClick={()=>{
+              self.popAddApp.open();
+            }}
+            bsStyle="primary"
+          >
+          添加应用
+          </Button>
+        </Col>
         <Table striped bordered condensed hover responsive>
           <thead>
             <tr>

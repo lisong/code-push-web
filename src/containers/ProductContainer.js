@@ -6,17 +6,15 @@ import _ from 'lodash';
 import * as usersActions from '../actions/usersActions';
 import * as authActions from '../actions/authActions';
 import * as routesActions from '../actions/routesActions';
-import Deployment from '../components/Deployment';
+import Product from '../components/Product';
 
-class DeploymentContainer extends Component {
+class ProductContainer extends Component {
   static propTypes = {
-    appName: PropTypes.string,
-    deploymentName: PropTypes.string,
+    appName: PropTypes.string
   };
 
   static defaultProps = {
     appName: '',
-    deploymentName: '',
   };
 
   componentDidMount() {
@@ -30,9 +28,9 @@ class DeploymentContainer extends Component {
     }
   }
   render() {
-    const {appName, deploymentName, actions} = this.props;
+    const {products, appName, actions } = this.props;
     return (
-      <Deployment appName={appName} deploymentName={deploymentName} />
+      <Product appName={appName} />
     );
   }
 }
@@ -53,4 +51,4 @@ function mapDispatchToProps(dispatch, ownProps) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeploymentContainer)
+)(ProductContainer)
