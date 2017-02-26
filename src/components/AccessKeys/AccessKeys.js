@@ -1,6 +1,6 @@
 
 import React, { PropTypes, Component } from 'react';
-import {Breadcrumb, Table, Button} from 'react-bootstrap';
+import {Breadcrumb, Table, Button, Col} from 'react-bootstrap';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './AccessKeys.css';
 import cx from 'classnames';
@@ -89,7 +89,7 @@ class AccessKeys extends Component {
             密钥列表
           </Breadcrumb.Item>
           </Breadcrumb>
-          <span style={{ float:'right', marginBottom:'20px', marginRight:'20px' }}>
+          <Col style={{marginBottom:'20px'}}>
             <Button
               onClick={()=>{
                 self.props.createKey();
@@ -99,8 +99,8 @@ class AccessKeys extends Component {
             >
               创建key
             </Button>
-          </span>
-          <Table striped bordered condensed hover>
+          </Col>
+          <Table striped bordered condensed hover responsive>
             <thead>
               <tr>
                 <th style={{ textAlign:'center' }} >名字</th>

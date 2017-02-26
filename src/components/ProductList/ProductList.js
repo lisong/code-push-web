@@ -76,7 +76,7 @@ class ProductList extends Component {
             应用列表
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Table striped bordered condensed hover>
+        <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
               <th style={{ textAlign:'center' }} >产品名</th>
