@@ -11,7 +11,7 @@ import Link from '../../Link';
 
 function StepDone() {
   return (
-    <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+    <Form style={{  maxWidth:350, marginLeft:"auto", marginRight: "auto" }}>
       <FormGroup style={{ textAlign:'center' }}>
         <div>
           <span>恭喜！您已经注册成功，快去</span>

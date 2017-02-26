@@ -87,7 +87,7 @@ class StepTwo extends Component {
       />
     );
     return (
-      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+      <Form style={{ maxWidth:350, marginLeft:"auto", marginRight: "auto" }}>
         <FormGroup>
           <Alert bsStyle="warning">
             请登录邮箱，查看验证码!

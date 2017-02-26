@@ -43,8 +43,8 @@ class StepOne extends Component {
         disabled = false;
     }
     return (
-      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
-        <FormGroup controlId="formHorizontalEmail">
+      <Form style={{maxWidth: 350, marginLeft:"auto", marginRight: "auto"}}>
+        <FormGroup>
           <ControlLabel>邮箱地址</ControlLabel>
           <FormControl
             onChange={this.setInputEmail}

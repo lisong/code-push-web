@@ -66,7 +66,7 @@ class StepThree extends Component {
         disabled = false;
     }
     return (
-      <Form style={{  width:350, marginLeft:"auto", marginRight: "auto" }}>
+      <Form style={{  maxWidth:350, marginLeft:"auto", marginRight: "auto" }}>
         <FormGroup>
           <ControlLabel>密码</ControlLabel>
           <FormControl
