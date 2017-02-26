@@ -1,6 +1,5 @@
 import * as types from '../actions/actionTypes';
 import _ from 'lodash';
-import moment from 'moment';
 
 export function users(state = {}, action) {
   switch (action.type) {

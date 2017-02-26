@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
-import moment from 'moment';
 import {
   ControlLabel,
   Form,
@@ -36,7 +35,7 @@ class StepTwo extends Component {
   }
 
   componentDidMount() {
-    if (120 - (parseInt(moment().format('X')) - this.props.lastSendTime) <= 0){
+    if (120 - (parseInt((new Date()).getTime()/1000) - this.props.lastSendTime) <= 0){
       this.props.sendValidateCode();
     }
   }
@@ -52,7 +51,7 @@ class StepTwo extends Component {
 
   render() {
     const self = this;
-    let leftTime = 120 - (parseInt(moment().format('X')) - this.props.lastSendTime);
+    let leftTime = 120 - (parseInt((new Date()).getTime()/1000) - this.props.lastSendTime);
     let isValidate = this.props.validateCode ? true : false;
     var disabled = true;
     if (!this.props.isChecking && isValidate){

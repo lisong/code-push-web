@@ -3,8 +3,6 @@ import _buffer from 'buffer';
 import _ from 'lodash';
 import { common } from '../config';
 import fetch from '../core/fetch';
-import moment from 'moment';
-
 const TIMEOUT = 10000;
 
 class RestApi {
@@ -48,7 +46,7 @@ class RestApi {
   }
 
   createAccessKey() {
-    var time = moment().format('x');
+    var time = (new Date()).getTime();
     var friendlyName = `Login-${time}`;
     var ttl = 30*2*24*60*60*1000;
     var createdBy = friendlyName;

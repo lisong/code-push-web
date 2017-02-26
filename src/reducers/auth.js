@@ -15,7 +15,6 @@ import {
   CLOSE_POP_SHOW_KEY,
 } from '../actions/actionTypes';
 import _ from 'lodash';
-import moment from 'moment';
 import restApi from '../network/RestApi';
 
 export function auth(state = {}, action) {
@@ -110,7 +109,7 @@ export function accessKeys(state = {}, action) {
 
     case CLOSE_POP_SHOW_KEY:
       return Object.assign({}, state, {showKey:{isOpen:false, token: ''}});
-      
+
     default:
       return state
   }

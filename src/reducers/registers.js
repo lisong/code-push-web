@@ -1,6 +1,5 @@
 import * as types from '../actions/actionTypes';
 import _ from 'lodash';
-import moment from 'moment';
 
 export function register(state = {}, action) {
   switch (action.type) {
@@ -23,7 +22,7 @@ export function register(state = {}, action) {
       return Object.assign({}, state, {isSending: true});
 
     case types.RECEIVE_REGISTER_SEND_VALIDATE_CODE:
-      var lastSendTime = parseInt(moment().format('X'));
+      var lastSendTime = parseInt((new Date()).getTime()/1000);
       return Object.assign({}, state, {
         isSending: false,
         lastSendTime: lastSendTime,

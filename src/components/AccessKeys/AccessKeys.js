@@ -6,7 +6,6 @@ import s from './AccessKeys.css';
 import cx from 'classnames';
 import _ from 'lodash';
 import Link from '../Link';
-import moment from 'moment';
 import MyEditor from '../MyEditor';
 import PopShowKey from './PopShowKey';
 
@@ -42,6 +41,7 @@ class AccessKeys extends Component {
 
   renderRow(rowData, index) {
     let self = this;
+    var moment = require('moment');
     return (
       <tr key={index}>
         <td>
