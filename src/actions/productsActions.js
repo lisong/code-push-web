@@ -25,3 +25,42 @@ export function getProducts() {
     });
   };
 }
+
+export function showPopAddApp() {
+  return {type: types.SHOW_POP_ADD_APP};
+}
+
+export function closePopAddApp() {
+  return {type: types.CLOSE_POP_ADD_APP};
+}
+
+export function popAddAppInput(params) {
+  return {
+    type: types.POP_ADD_APP_INPUT,
+    payload : params
+  }
+}
+
+export function requestAddProducts() {
+  return {
+    type: types.REQUEST_ADD_PRODUCTS,
+  }
+}
+
+export function receiveAddProducts(data) {
+  return {
+    type: types.RECEIVE_ADD_PRODUCTS,
+    payload: data
+  }
+}
+
+export function addProducts(appName) {
+  return (dispatch) => {
+    dispatch(requestAddProducts());
+    return restApi.addProducts(appName)
+    .then(data => {
+      dispatch(receiveAddProducts(data));
+      dispatch(getProducts());
+    });
+  };
+}

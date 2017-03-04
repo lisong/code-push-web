@@ -76,5 +76,9 @@ export const SHOW_LOGIN = 'SHOW_LOGIN';
 /*========= begin productsActions ===========*/
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
-
+export const SHOW_POP_ADD_APP = 'SHOW_POP_ADD_APP';
+export const CLOSE_POP_ADD_APP = 'CLOSE_POP_ADD_APP';
+export const POP_ADD_APP_INPUT = 'POP_ADD_APP_INPUT';
+export const REQUEST_ADD_PRODUCTS = 'REQUEST_ADD_PRODUCTS';
+export const RECEIVE_ADD_PRODUCTS = 'RECEIVE_ADD_PRODUCTS';
 /*========= end productsActions   ===========*/

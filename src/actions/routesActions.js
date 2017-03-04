@@ -1,4 +1,9 @@
-import {SET_BACK_HISTORY, GO_BACK_HISTORY, SHOW_HOME, SHOW_LOGIN} from './actionTypes';
+import {
+  SET_BACK_HISTORY,
+  GO_BACK_HISTORY,
+  SHOW_HOME,
+  SHOW_LOGIN,
+} from './actionTypes';
 
 export function setBackHistory(history="/") {
   return {

@@ -16,6 +16,7 @@ class RestApi {
     }
     this.headers = {'Accept': 'application/json', 'Content-Type': 'application/json'};
     this.dealResponse = this.dealResponse.bind(this);
+    this.jsonDecode = this.jsonDecode.bind(this);
     this.setAuthToken = this.setAuthToken.bind(this);
     this.deleteAuthToken = this.deleteAuthToken.bind(this);
   }
@@ -26,23 +27,39 @@ class RestApi {
   }
 
   getProducts() {
-    return this.get('/apps');
+    return this.get('/apps')
+    .then(data=>this.jsonDecode(data.text));
   }
 
   login(account, password) {
-    return this.post('/auth/login', {account: account, password: password, minutes:43200});
+    return this.post('/auth/login', {account: account, password: password, minutes:43200})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   getAccessKeys() {
-    return this.get('/accessKeys');
+    return this.get('/accessKeys')
+    .then(data=>this.jsonDecode(data.text));
+  }
+
+  addProducts(appName) {
+    return this.post('/apps', {name:appName}, false)
+    .then(data=>{
+      if (data.httpCode == 200) {
+        return {status:"OK", results: this.jsonDecode(data.text)};
+      } else {
+        return {status:"ERROR", errorCode: 0, errorMessage: data.text};
+      }
+    });
   }
 
   removeAccessKey(name) {
-    return this.delete(`/accessKeys/${encodeURI(name)}`);
+    return this.delete(`/accessKeys/${encodeURI(name)}`)
+    .then(data=>this.jsonDecode(data.text));
   }
 
   patchAccessKey(name, friendlyName=null, ttl=0) {
-    return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl});
+    return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   createAccessKey() {
@@ -51,28 +68,34 @@ class RestApi {
     var ttl = 30*2*24*60*60*1000;
     var createdBy = friendlyName;
     var isSession = true;
-    return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession});
+    return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   checkEmailExists(email) {
-    return this.get(`/users/exists?email=${encodeURI(email)}`);
+    return this.get(`/users/exists?email=${encodeURI(email)}`)
+    .then(data=>this.jsonDecode(data.text));
   }
 
   sendRegisterCode(email) {
-    return this.post(`/users/registerCode`, {email});
+    return this.post(`/users/registerCode`, {email})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   checkRegisterCodeExists(email, code) {
     let query = `email=${encodeURI(email)}&token=${encodeURI(code)}`;
-    return this.get(`/users/registerCode/exists?${query}`);
+    return this.get(`/users/registerCode/exists?${query}`)
+    .then(data=>this.jsonDecode(data.text));
   }
 
   register(email, password, token) {
-    return this.post(`/users`, {email, password, token});
+    return this.post(`/users`, {email, password, token})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   password(oldPassword, newPassword) {
-    return this.patch(`/users/password`, {oldPassword, newPassword});
+    return this.patch(`/users/password`, {oldPassword, newPassword})
+    .then(data=>this.jsonDecode(data.text));
   }
 
   buildReadmeUrl() {
@@ -81,23 +104,23 @@ class RestApi {
 
   dealResponse(response) {
     var self = this;
-    return response.text().then(text=> {
-      try {
-        if (__DEV__) {
-          console.log(self.headers);
-          console.log(response.url);
-          console.log(text);
-        }
-        return JSON.parse(text);
-      } catch (e) {
-        if (__DEV__) {
-          console.error(text);
-        }
-        throw e;
+    return response.text()
+    .then(text=> {
+      if (__DEV__) {
+        console.log(self.headers);
+        console.log(response.url);
+        console.log(text);
       }
-    }).catch(e=> {
-      return {status: 'ERROR', errorCode: 0, errorMessage: '网络错误，请重试!'}
+      return {httpCode: response.status, text: text};
     });
+  }
+
+  jsonDecode(text) {
+    try{
+      return JSON.parse(text)
+    } catch (e) {
+      return {status: 'ERROR', errorCode: 0, errorMessage: e.message, results: text}
+    }
   }
 
   get(uri) {
@@ -106,9 +129,9 @@ class RestApi {
       headers: this.headers,
       timeout: TIMEOUT,
     })
-    .then(this.dealResponse)
+    .then((response)=>this.dealResponse(response))
     .catch(function (e) {
-      return {status: 'ERROR', errorCode: 0, errorMessage: '网络错误，请重试!'}
+      return {httpCode: 0, text: '网络错误，请重试!'}
     });
   }
 
@@ -121,7 +144,7 @@ class RestApi {
     })
     .then(this.dealResponse)
     .catch(function (e) {
-      return {status: 'ERROR', errorCode: 0, errorMessage: '网络错误，请重试!'}
+      return {httpCode: 0, text: '网络错误，请重试!'}
     });
   }
 
@@ -134,11 +157,11 @@ class RestApi {
     })
     .then(this.dealResponse)
     .catch(function (e) {
-      return {status: 'ERROR', errorCode: 0, errorMessage: '网络错误，请重试!'}
+      return {httpCode: 0, text: '网络错误，请重试!'}
     });
   }
 
-  delete(uri, params={}) {
+  delete(uri, params={}, jsonDecode = true) {
     return fetch(this.baseURI + uri, {
       method: 'DELETE',
       headers: this.headers,
@@ -147,7 +170,7 @@ class RestApi {
     })
     .then(this.dealResponse)
     .catch(function (e) {
-      return {status: 'ERROR', errorCode: 0, errorMessage: '网络错误，请重试!'}
+      return {httpCode: 0, text: '网络错误，请重试!'}
     });
   }
 

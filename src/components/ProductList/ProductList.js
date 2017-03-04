@@ -6,19 +6,18 @@ import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ProductList.css';
 import Link from '../Link';
-import PopAddApp from './PopAddApp';
 
 class ProductList extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     rs: PropTypes.array,
+    popAddApp: PropTypes.func,
   };
-
-  popAddApp:PopAddApp = null;
 
   static defaultProps = {
     isFetching: true,
     rs: [],
+    popAddApp: ()=>{},
   };
 
   constructor() {
@@ -74,11 +73,6 @@ class ProductList extends Component {
     const tipText = '暂无数据';
     return (
       <div className={s.root}>
-        <PopAddApp
-          ref={(popAddApp) => { this.popAddApp = popAddApp; }}
-          value={this.props.token}
-          close={this.props.close}
-        />
         <div className={s.container}>
         <Breadcrumb>
           <Breadcrumb.Item active={true}>
@@ -87,9 +81,7 @@ class ProductList extends Component {
         </Breadcrumb>
         <Col style={{marginBottom:'20px'}}>
           <Button
-            onClick={()=>{
-              self.popAddApp.open();
-            }}
+            onClick={this.props.popAddApp}
             bsStyle="primary"
           >
           添加应用
