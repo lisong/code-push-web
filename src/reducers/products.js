@@ -47,7 +47,6 @@ export function addProducts(state = {}, action) {
           _.set(payload, 'isShowNameError', true);
         }
       }
-      console.log(appType);
       if (appType !== undefined) {
         if (_.indexOf([1, 2], parseInt(appType)) !== -1 ) {
           _.set(payload, 'isShowAppTypeError', false);
