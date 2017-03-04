@@ -166,3 +166,9 @@ export function closePopShowKey() {
     type: CLOSE_POP_SHOW_KEY,
   }
 }
+
+export function checkResponseAuth(dispatch, data) {
+    if (data.httpCode == 401) {
+      dispatch(fetchAuth(true));
+    }
+}

@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import * as types from './actionTypes';
 import restApi from '../network/RestApi';
+import {checkResponseAuth} from './authActions';
 
 export function requestProducts() {
   return {
@@ -21,6 +22,7 @@ export function getProducts() {
     dispatch(requestProducts());
     return restApi.getProducts()
     .then(data => {
+      checkResponseAuth(dispatch, data);
       dispatch(receiveProducts(data));
     });
   };
@@ -59,6 +61,7 @@ export function addProducts(appName) {
     dispatch(requestAddProducts());
     return restApi.addProducts(appName)
     .then(data => {
+      checkResponseAuth(dispatch, data);
       dispatch(receiveAddProducts(data));
       dispatch(getProducts());
     });

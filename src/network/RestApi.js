@@ -28,38 +28,38 @@ class RestApi {
 
   getProducts() {
     return this.get('/apps')
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   login(account, password) {
     return this.post('/auth/login', {account: account, password: password, minutes:43200})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   getAccessKeys() {
     return this.get('/accessKeys')
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   addProducts(appName) {
     return this.post('/apps', {name:appName}, false)
     .then(data=>{
       if (data.httpCode == 200) {
-        return {status:"OK", results: this.jsonDecode(data.text)};
+        return {status:"OK", httpCode: data.httpCode, results: this.jsonDecode(data.text)};
       } else {
-        return {status:"ERROR", errorCode: 0, errorMessage: data.text};
+        return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
       }
     });
   }
 
   removeAccessKey(name) {
     return this.delete(`/accessKeys/${encodeURI(name)}`)
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   patchAccessKey(name, friendlyName=null, ttl=0) {
     return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   createAccessKey() {
@@ -69,33 +69,33 @@ class RestApi {
     var createdBy = friendlyName;
     var isSession = true;
     return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   checkEmailExists(email) {
     return this.get(`/users/exists?email=${encodeURI(email)}`)
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   sendRegisterCode(email) {
     return this.post(`/users/registerCode`, {email})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   checkRegisterCodeExists(email, code) {
     let query = `email=${encodeURI(email)}&token=${encodeURI(code)}`;
     return this.get(`/users/registerCode/exists?${query}`)
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   register(email, password, token) {
     return this.post(`/users`, {email, password, token})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   password(oldPassword, newPassword) {
     return this.patch(`/users/password`, {oldPassword, newPassword})
-    .then(data=>this.jsonDecode(data.text));
+    .then(this.jsonDecode);
   }
 
   buildReadmeUrl() {
@@ -115,11 +115,11 @@ class RestApi {
     });
   }
 
-  jsonDecode(text) {
+  jsonDecode(response) {
     try{
-      return JSON.parse(text)
+      return JSON.parse(response.text)
     } catch (e) {
-      return {status: 'ERROR', errorCode: 0, errorMessage: e.message, results: text}
+      return {status: 'ERROR', httpCode: response.httpCode, errorCode: 0, errorMessage: e.message, results: response.text}
     }
   }
 
@@ -129,7 +129,7 @@ class RestApi {
       headers: this.headers,
       timeout: TIMEOUT,
     })
-    .then((response)=>this.dealResponse(response))
+    .then(this.dealResponse)
     .catch(function (e) {
       return {httpCode: 0, text: '网络错误，请重试!'}
     });

@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import restApi from '../network/RestApi';
-import {saveAuth, deleteAuth} from './authActions';
+import {saveAuth, deleteAuth, checkResponseAuth} from './authActions';
 import {showLogin} from './routesActions';
 import _ from 'lodash';
 
@@ -107,6 +107,7 @@ export function modifyPassword(oldPassword, newPassword) {
     dispatch(requestModifyPassword());
     return restApi.password(oldPassword, newPassword)
     .then(data => {
+      checkResponseAuth(dispatch, data);
       if (_.get(data, 'status') == "OK") {
         dispatch(deleteAuth());
         dispatch(receiveModifyPassword(data));
