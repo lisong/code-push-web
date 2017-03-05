@@ -81,6 +81,8 @@ export const CLOSE_POP_ADD_APP = 'CLOSE_POP_ADD_APP';
 export const POP_ADD_APP_INPUT = 'POP_ADD_APP_INPUT';
 export const REQUEST_ADD_PRODUCTS = 'REQUEST_ADD_PRODUCTS';
 export const RECEIVE_ADD_PRODUCTS = 'RECEIVE_ADD_PRODUCTS';
+export const REQUEST_PRODUCTS_DEPLOYMENTS = 'REQUEST_PRODUCTS_DEPLOYMENTS';
+export const RECEIVE_PRODUCTS_DEPLOYMENTS = 'RECEIVE_PRODUCTS_DEPLOYMENTS';
 /*========= end productsActions   ===========*/
 
 /*========= begin msgStackActions ===========*/

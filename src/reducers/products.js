@@ -8,6 +8,8 @@ import {
   POP_ADD_APP_INPUT,
   REQUEST_ADD_PRODUCTS,
   RECEIVE_ADD_PRODUCTS,
+  REQUEST_PRODUCTS_DEPLOYMENTS,
+  RECEIVE_PRODUCTS_DEPLOYMENTS,
 } from '../actions/actionTypes';
 
 export function products(state = {}, action) {
@@ -16,7 +18,6 @@ export function products(state = {}, action) {
       return Object.assign({}, state, {isFetching: true});
 
     case RECEIVE_PRODUCTS:
-
       return Object.assign({}, state, {
         isFetching: false,
         rs: _.get(action, 'payload.apps')
@@ -25,6 +26,23 @@ export function products(state = {}, action) {
     default :
       return state;
   }
+}
+
+export function deployments(state = {rs:{}}, action) {
+    let payload = _.get(action, 'payload');
+    switch (action.type) {
+      case REQUEST_PRODUCTS_DEPLOYMENTS:
+        return Object.assign({}, state, {isFetching: true});
+
+      case RECEIVE_PRODUCTS_DEPLOYMENTS:
+        var data = Object.assign({}, state, {isFetching: false});
+        var appName = _.get(payload, 'appName');
+        _.set(data, `rs.${appName}`, _.get(payload, 'results.deployments'));
+        return data;
+
+      default :
+        return state;
+    }
 }
 
 export function addProducts(state = {}, action) {

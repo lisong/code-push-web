@@ -10,14 +10,17 @@ import Link from '../Link';
 class Product extends Component {
   static propTypes = {
     appName: PropTypes.string,
+    items: PropTypes.array
   };
 
   static defaultProps = {
     appName: '',
+    items: [],
   };
 
   constructor() {
     super();
+    this.renderRow = this.renderRow.bind(this);
   }
 
   render() {
@@ -46,10 +49,36 @@ class Product extends Component {
             </tr>
           </thead>
           <tbody>
+            {
+             this.props.items.length > 0 ?
+             _.map(this.props.items, (item, index) => self.renderRow(item, index))
+             :
+             <tr>
+               <td colSpan="6" >{tipText}</td>
+             </tr>
+            }
           </tbody>
         </Table>
         </div>
       </div>
+    );
+  }
+
+  renderRow(rowData, index) {
+    const deployName = _.get(rowData, 'name');
+    return (
+      <tr key={index}>
+        <td>
+          <Link to={`/apps/${this.props.appName}/${deployName}`}>{deployName}</Link>
+        </td>
+        <td style={{ textAlign: 'left' }}>
+          {_.get(rowData, 'key')}
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td />
+      </tr>
     );
   }
 }

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import LayoutContainer from '../../containers/LayoutContainer';
-import { getProducts } from '../../actions/productsActions';
+import { getProducts, fetchDeployments} from '../../actions/productsActions';
 import _ from 'lodash';
 
 const apps = {
@@ -48,10 +48,12 @@ const appDetails = {
   path: '/apps/:appName',
 
   async action({store, params}) {
-    if (process.env.BROWSER) {
-
-    }
     var appName = _.get(params, 'appName');
+    if (process.env.BROWSER) {
+      setTimeout(() => {
+        store.dispatch(fetchDeployments(appName));
+      }, 100);
+    }
     const ProductContainer = await require.ensure([], require => require('../../containers/ProductContainer').default, 'product');
     return {
       title: `${appName} 详情`,

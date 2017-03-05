@@ -41,6 +41,22 @@ class RestApi {
     .then(this.jsonDecode);
   }
 
+  getDeployments(appName) {
+    return this.get(`/apps/${appName}/deployments`)
+    .then(data=>{
+      if (data.httpCode == 200) {
+        var rs = this.jsonDecode(data);
+        if (_.get(rs, 'status') != "ERROR") {
+          return {status:"OK", httpCode: data.httpCode, results: rs};
+        } else {
+          return rs;
+        }
+      } else {
+        return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
+      }
+    });
+  }
+
   addProducts(appName) {
     return this.post('/apps', {name:appName})
     .then(data=>{

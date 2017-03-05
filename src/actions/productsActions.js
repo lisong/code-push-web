@@ -73,3 +73,28 @@ export function addProducts(appName) {
     });
   };
 }
+
+export function requestDeployments(appName) {
+  return {
+    type: types.REQUEST_PRODUCTS_DEPLOYMENTS,
+    payload: appName
+  }
+}
+
+export function receiveDeployments(appName, data) {
+  return {
+    type: types.RECEIVE_PRODUCTS_DEPLOYMENTS,
+    payload: {appName, ...data}
+  }
+}
+
+export function fetchDeployments(appName) {
+  return (dispatch) => {
+    dispatch(requestDeployments(appName));
+    return restApi.getDeployments(appName)
+    .then(data => {
+      checkResponseAuth(dispatch, data);
+      dispatch(receiveDeployments(appName, data));
+    });
+  };
+}

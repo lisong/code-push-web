@@ -28,9 +28,12 @@ class ProductContainer extends Component {
     }
   }
   render() {
-    const {products, appName, actions } = this.props;
+    const {deployments, appName, actions } = this.props;
     return (
-      <Product appName={appName} />
+      <Product
+      appName={appName}
+      items={_.get(deployments, `rs.${appName}`)}
+      />
     );
   }
 }
@@ -38,7 +41,7 @@ class ProductContainer extends Component {
 function mapStateToProps(state, ownProps) {
   return {
     'auth': _.get(state, 'auth', {}),
-    'products': _.get(state, 'products', {})
+    'deployments': _.get(state, 'deployments', {})
   };
 }
 

@@ -11,3 +11,18 @@
   min-height: 480px;
   max-width: var(--max-content-width);
 }
+
+table{
+  font-size: 1.2em;
+  width: 100%;
+  text-align: center;
+}
+
+li {
+  list-style: none;
+}
+
+li a {
+  text-decoration: none;
+  color: inherit;
+}
