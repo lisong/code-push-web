@@ -47,7 +47,7 @@ class MsgStack extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkItemsInterval();
+    setTimeout(this.checkItemsInterval, 200);
   }
 
   render() {
