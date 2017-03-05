@@ -59,12 +59,34 @@ class RestApi {
 
   removeAccessKey(name) {
     return this.delete(`/accessKeys/${encodeURI(name)}`)
-    .then(this.jsonDecode);
+    .then(data=>{
+      if (data.httpCode == 200) {
+        var rs = this.jsonDecode(data);
+        if (_.get(rs, 'status') != "ERROR") {
+          return {status:"OK", httpCode: data.httpCode, results: rs};
+        } else {
+          return rs;
+        }
+      } else {
+        return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
+      }
+    });
   }
 
   patchAccessKey(name, friendlyName=null, ttl=0) {
     return this.patch(`/accessKeys/${encodeURI(name)}`, {friendlyName, ttl})
-    .then(this.jsonDecode);
+    .then(data=>{
+      if (data.httpCode == 200) {
+        var rs = this.jsonDecode(data);
+        if (_.get(rs, 'status') != "ERROR") {
+          return {status:"OK", httpCode: data.httpCode, results: rs};
+        } else {
+          return rs;
+        }
+      } else {
+        return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
+      }
+    });
   }
 
   createAccessKey() {
@@ -74,7 +96,18 @@ class RestApi {
     var createdBy = friendlyName;
     var isSession = true;
     return this.post(`/accessKeys`, {friendlyName, ttl, createdBy, isSession})
-    .then(this.jsonDecode);
+    .then(data=>{
+      if (data.httpCode == 200) {
+        var rs = this.jsonDecode(data);
+        if (_.get(rs, 'status') != "ERROR") {
+          return {status:"OK", httpCode: data.httpCode, results: rs};
+        } else {
+          return rs;
+        }
+      } else {
+        return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
+      }
+    });
   }
 
   checkEmailExists(email) {

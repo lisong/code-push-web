@@ -10,7 +10,7 @@ class MsgStackContainer extends Component {
   render() {
     const {msgStack, actions } = this.props;
     return (
-      <div style={{position: 'fixed',top:60,right:20, width:'30%' }}>
+      <div style={{position: 'fixed', top:80, right:20, minWidth:100,maxWidth:300 }}>
         <MsgStack
         items={_.get(msgStack, 'rs', [])}
         close={(id)=>{actions.closeMsg(id)}}

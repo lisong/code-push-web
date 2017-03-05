@@ -66,7 +66,7 @@ export function accessKeys(state = {}, action) {
       return Object.assign({}, state, {isRemoving: true});
 
     case RECEIVE_REMOVE_ACCESS_KEY:
-      var friendlyName = _.get(action, 'payload.friendlyName');
+      var friendlyName = _.get(action, 'payload.results.friendlyName');
       var data = Object.assign({}, state);
       _.remove(data.rs, function(row) {
         return _.get(row, 'friendlyName') == friendlyName;
@@ -82,8 +82,8 @@ export function accessKeys(state = {}, action) {
       var index = _.findIndex(data.rs, function(row) {
         return _.get(row, 'friendlyName') == friendlyName;
       });
-      if (_.get(action, 'payload.accessKey')) {
-        _.set(data, `rs.${index}`, _.get(action, 'payload.accessKey'));
+      if (_.get(action, 'payload.results.accessKey')) {
+        _.set(data, `rs.${index}`, _.get(action, 'payload.results.accessKey'));
       }
       return data;
 
@@ -92,8 +92,8 @@ export function accessKeys(state = {}, action) {
 
     case RECEIVE_CREATE_ACCESS_KEY:
       var data = Object.assign({}, state);
-      if (_.get(action, 'payload.accessKey')) {
-        data.rs.unshift(_.get(action, 'payload.accessKey'));
+      if (_.get(action, 'payload.results.accessKey')) {
+        data.rs.unshift(_.get(action, 'payload.results.accessKey'));
       }
       _.set(data, 'isCreating', false);
       return data;

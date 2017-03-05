@@ -20,7 +20,7 @@ export function msgStack(state = {rs:[]}, action) {
         time: parseInt((new Date()).getTime()/1000)
       };
       var rs = _.get(data, 'rs', []);
-      rs.splice(0, 0, msg);
+      rs.unshift(msg);
       _.set(data, 'rs', rs);
       return data;
 

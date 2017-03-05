@@ -24,7 +24,6 @@ class MsgStack extends Component {
       this.intervalId = setInterval(function () {
         var time = parseInt((new Date()).getTime() /1000)
         _.map(self.props.items, function(item){
-          console.log(item);
           if((parseInt(_.get(item, 'time')) + parseInt(_.get(item, 'showTime'))) < time) {
             self.props.close(_.get(item, 'id'));
           }
@@ -33,13 +32,15 @@ class MsgStack extends Component {
     } else {
       if (this.intervalId) {
         clearInterval(this.intervalId);
+        this.intervalId = null;
       }
     }
   }
-  
+
   componentWillUnmount() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
+      this.intervalId = null;
     }
   }
 
@@ -67,7 +68,7 @@ class MsgStack extends Component {
               bsStyle = item.type;
             }
             return  (
-              <Alert key={item.id} bsStyle={bsStyle} onDismiss={()=>{self.props.close(item.id)}}>
+              <Alert key={item.id} style={{ marginTop:-15}} bsStyle={bsStyle} onDismiss={()=>{self.props.close(item.id)}}>
                 {item.text}
               </Alert>
             )

@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import restApi from '../network/RestApi';
 import {saveAuth, deleteAuth, checkResponseAuth} from './authActions';
 import {showLogin} from './routesActions';
+import {addShowMsg} from './msgStackActions';
 import _ from 'lodash';
 
 export function logout() {
