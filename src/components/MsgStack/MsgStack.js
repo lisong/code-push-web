@@ -36,6 +36,12 @@ class MsgStack extends Component {
       }
     }
   }
+  
+  componentWillUnmount() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 
   constructor() {
     super();
