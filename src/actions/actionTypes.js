@@ -82,3 +82,8 @@ export const POP_ADD_APP_INPUT = 'POP_ADD_APP_INPUT';
 export const REQUEST_ADD_PRODUCTS = 'REQUEST_ADD_PRODUCTS';
 export const RECEIVE_ADD_PRODUCTS = 'RECEIVE_ADD_PRODUCTS';
 /*========= end productsActions   ===========*/
+
+/*========= begin msgStackActions ===========*/
+export const MSG_STACK_SHOW_MSG = 'MSG_STACK_SHOW_MSG';
+export const MSG_STACK_CLOSE_MSG = 'MSG_STACK_CLOSE_MSG';
+/*========= end msgStackActions   ===========*/

@@ -42,10 +42,15 @@ class RestApi {
   }
 
   addProducts(appName) {
-    return this.post('/apps', {name:appName}, false)
+    return this.post('/apps', {name:appName})
     .then(data=>{
       if (data.httpCode == 200) {
-        return {status:"OK", httpCode: data.httpCode, results: this.jsonDecode(data.text)};
+        var rs = this.jsonDecode(data);
+        if (_.get(rs, 'status') != "ERROR") {
+          return {status:"OK", httpCode: data.httpCode, results: rs};
+        } else {
+          return rs;
+        }
       } else {
         return {status:"ERROR", httpCode: data.httpCode, errorCode: 0, errorMessage: data.text};
       }
@@ -161,7 +166,7 @@ class RestApi {
     });
   }
 
-  delete(uri, params={}, jsonDecode = true) {
+  delete(uri, params={}) {
     return fetch(this.baseURI + uri, {
       method: 'DELETE',
       headers: this.headers,

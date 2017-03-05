@@ -6,6 +6,7 @@ import {register} from './registers';
 import {auth, accessKeys} from './auth';
 import {routes} from './routes';
 import {products, addProducts} from './products';
+import {msgStack} from './msgStack';
 
 const appReducer = combineReducers({
   users,
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   routes,
   products,
   addProducts,
+  msgStack,
 });
 
 const rootReducer = (state, action) => {

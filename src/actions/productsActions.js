@@ -3,6 +3,7 @@ import _ from 'lodash';
 import * as types from './actionTypes';
 import restApi from '../network/RestApi';
 import {checkResponseAuth} from './authActions';
+import {addShowMsg} from './msgStackActions';
 
 export function requestProducts() {
   return {
@@ -62,6 +63,11 @@ export function addProducts(appName) {
     return restApi.addProducts(appName)
     .then(data => {
       checkResponseAuth(dispatch, data);
+      if (_.get(data, 'status') !== "OK") {
+        dispatch(addShowMsg("创建应用: "+_.get(data,'errorMessage'), "danger"));
+      } else {
+        dispatch(addShowMsg("创建 "+_.get(data,'results.app.name')+" 应用成功", "success"));
+      }
       dispatch(receiveAddProducts(data));
       dispatch(getProducts());
     });

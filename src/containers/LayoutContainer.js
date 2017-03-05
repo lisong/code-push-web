@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
+import MsgStackContainer from './MsgStackContainer';
 
 class LayoutContainer extends Component {
   render() {
@@ -17,6 +18,7 @@ class LayoutContainer extends Component {
           />
         {this.props.children}
         <Footer/>
+        <MsgStackContainer/>
       </Layout>
     );
   }

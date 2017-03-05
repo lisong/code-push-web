@@ -1,0 +1,7 @@
+
+{
+  "name": "MsgStack",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./MsgStack.js"
+}
