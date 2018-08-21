@@ -194,7 +194,7 @@
       ]
     }
   },
-  "pre-commit": "lint:staged",
+  // "pre-commit": "lint:staged",
   "lint-staged": {
     "*.{cmd,html,json,md,sh,txt,xml,yml}": [
       "editorconfig-tools fix",

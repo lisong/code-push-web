@@ -1,6 +1,6 @@
 
 import React, { PropTypes, Component } from 'react';
-import {Breadcrumb, Table, Button, Col} from 'react-bootstrap';
+import { Breadcrumb, Table, Button, Col } from 'react-bootstrap';
 import cx from 'classnames';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -17,7 +17,7 @@ class ProductList extends Component {
   static defaultProps = {
     isFetching: true,
     rs: [],
-    popAddApp: ()=>{},
+    popAddApp: () => {},
   };
 
   constructor() {
@@ -27,7 +27,7 @@ class ProductList extends Component {
   renderRow(rowData, index) {
     const appName = _.get(rowData, 'name');
     return (
-      <tr key={index}>
+      <tr key={_.get(rowData, 'name')}>
         <td>
           <Link to={`/apps/${appName}`}>{appName}</Link>
         </td>
@@ -74,30 +74,30 @@ class ProductList extends Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-        <Breadcrumb>
-          <Breadcrumb.Item active={true}>
+          <Breadcrumb>
+            <Breadcrumb.Item active>
             应用列表
           </Breadcrumb.Item>
-        </Breadcrumb>
-        <Col style={{marginBottom:'20px'}}>
-          <Button
-            onClick={this.props.popAddApp}
-            bsStyle="primary"
-          >
+          </Breadcrumb>
+          <Col style={{ marginBottom: '20px' }}>
+            <Button
+              onClick={this.props.popAddApp}
+              bsStyle="primary"
+            >
           添加应用
           </Button>
-        </Col>
-        <Table striped bordered condensed hover responsive>
-          <thead>
-            <tr>
-              <th style={{ textAlign:'center' }} >产品名</th>
-              <th style={{ textAlign:'center' }} >成员</th>
-              <th style={{ textAlign:'center' }} >Deployments</th>
-              <th style={{ textAlign:'center' }} >操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
+          </Col>
+          <Table striped bordered condensed hover responsive>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }} >产品名</th>
+                <th style={{ textAlign: 'center' }} >成员</th>
+                <th style={{ textAlign: 'center' }} >Deployments</th>
+                <th style={{ textAlign: 'center' }} >操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
              this.props.rs.length > 0 ?
              _.map(this.props.rs, (item, index) => self.renderRow(item, index))
              :
@@ -105,8 +105,8 @@ class ProductList extends Component {
                <td colSpan="4" >{tipText}</td>
              </tr>
             }
-          </tbody>
-        </Table>
+            </tbody>
+          </Table>
         </div>
       </div>
     );

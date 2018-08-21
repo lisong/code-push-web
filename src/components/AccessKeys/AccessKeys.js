@@ -1,6 +1,6 @@
 
 import React, { PropTypes, Component } from 'react';
-import {Breadcrumb, Table, Button, Col} from 'react-bootstrap';
+import { Breadcrumb, Table, Button, Col } from 'react-bootstrap';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './AccessKeys.css';
 import cx from 'classnames';
@@ -25,43 +25,43 @@ class AccessKeys extends Component {
   static defaultProps = {
     isFetching: true,
     rs: [],
-    removeKey: (name)=>{},
-    patchKey: (name, friendlyName=null, ttl=0)=>{},
+    removeKey: (name) => {},
+    patchKey: (name, friendlyName = null, ttl = 0) => {},
     isCreating: false,
-    createKey: ()=>{},
+    createKey: () => {},
     isShowKey: false,
-    close: ()=>{},
+    close: () => {},
     token: '',
   };
 
-  constructor(){
+  constructor() {
     super();
     this.renderRow = this.renderRow.bind(this);
   }
 
   renderRow(rowData, index) {
-    let self = this;
-    var moment = require('moment');
+    const self = this;
+    const moment = require('moment');
     return (
-      <tr key={index}>
+      <tr key={_.get(rowData, 'id')}>
         <td>
-        <MyEditor
-          saveData={(str)=>{
-            if (!_.eq(str, _.get(rowData, 'friendlyName'))) {
-              self.props.patchKey(_.get(rowData, 'friendlyName'), str);
-            }
-          }}
-          value={_.get(rowData, 'friendlyName')}
+          <MyEditor
+            saveData={(str) => {
+              if (!_.eq(str, _.get(rowData, 'friendlyName'))) {
+                self.props.patchKey(_.get(rowData, 'friendlyName'), str);
+              }
+            }}
+            value={_.get(rowData, 'friendlyName')}
           />
         </td>
         <td>{_.get(rowData, 'createdBy')}</td>
-        <td>{_.get(rowData, 'isSession') ? 'session': 'accessKey'}</td>
+        <td>{_.get(rowData, 'isSession') ? 'session' : 'accessKey'}</td>
         <td>{moment(_.get(rowData, 'createdTime')).fromNow()}</td>
         <td>{moment(_.get(rowData, 'expires')).fromNow()}</td>
         <td>
-        <Button
-          onClick={()=>{self.props.removeKey(_.get(rowData, 'friendlyName'))}}
-          bsStyle="danger"
+          <Button
+            onClick={() => { self.props.removeKey(_.get(rowData, 'friendlyName')); }}
+            bsStyle="danger"
           >
           移除
         </Button>
@@ -71,10 +71,10 @@ class AccessKeys extends Component {
   }
 
   render() {
-    let self = this;
+    const self = this;
     let tipText = '暂无数据';
     if (this.props.isFetching) {
-      tipText = '加载数据中...'
+      tipText = '加载数据中...';
     }
     return (
       <div className={s.root}>
@@ -85,17 +85,17 @@ class AccessKeys extends Component {
         />
         <div className={s.container}>
           <Breadcrumb>
-          <Breadcrumb.Item active={true}>
+            <Breadcrumb.Item active>
             密钥列表
           </Breadcrumb.Item>
           </Breadcrumb>
-          <Col style={{marginBottom:'20px'}}>
+          <Col style={{ marginBottom: '20px' }}>
             <Button
-              onClick={()=>{
+              onClick={() => {
                 self.props.createKey();
               }}
               bsStyle="primary"
-              disabled={this.props.isCreating ? true:false  }
+              disabled={!!this.props.isCreating}
             >
               创建key
             </Button>
@@ -103,23 +103,21 @@ class AccessKeys extends Component {
           <Table striped bordered condensed hover responsive>
             <thead>
               <tr>
-                <th style={{ textAlign:'center' }} >名字</th>
-                <th style={{ textAlign:'center' }} >创建者</th>
-                <th style={{ textAlign:'center' }} >类型</th>
-                <th style={{ textAlign:'center' }} >创建时间</th>
-                <th style={{ textAlign:'center' }} >过期时间</th>
-                <th style={{ textAlign:'center' }} >操作</th>
+                <th style={{ textAlign: 'center' }} >名字</th>
+                <th style={{ textAlign: 'center' }} >创建者</th>
+                <th style={{ textAlign: 'center' }} >类型</th>
+                <th style={{ textAlign: 'center' }} >创建时间</th>
+                <th style={{ textAlign: 'center' }} >过期时间</th>
+                <th style={{ textAlign: 'center' }} >操作</th>
               </tr>
             </thead>
             <tbody>
               {
                  this.props.rs.length > 0 ?
-                 _.map(this.props.rs, function (item, index) {
-                   return self.renderRow(item, index);
-                 })
+                 _.map(this.props.rs, (item, index) => self.renderRow(item, index))
                  :
                  <tr>
-                  <td colSpan="6" >{tipText}</td>
+                   <td colSpan="6" >{tipText}</td>
                  </tr>
                }
             </tbody>
