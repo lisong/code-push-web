@@ -57,8 +57,8 @@ class RestApi {
     });
   }
 
-  addProducts(appName) {
-    return this.post('/apps', {name:appName})
+  addProducts(appName, os, platform) {
+    return this.post('/apps', {name:appName, os:os, platform:platform})
     .then(data=>{
       if (data.httpCode == 200) {
         var rs = this.jsonDecode(data);

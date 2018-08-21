@@ -27,8 +27,10 @@ class PopAddApp extends Component {
     errorTip: PropTypes.string,
     showModal: PropTypes.bool,
     isShowNameError: PropTypes.bool,
-    isShowAppTypeError: PropTypes.bool,
-    appType: PropTypes.number,
+    isShowOSError: PropTypes.bool,
+    isShowPlatformError: PropTypes.bool,
+    os: PropTypes.string,
+    platform: PropTypes.string,
     appName: PropTypes.string,
   };
 
@@ -40,8 +42,10 @@ class PopAddApp extends Component {
     errorTip: '',
     showModal: false,
     isShowNameError: false,
-    isShowAppTypeError: false,
-    appType: 0,
+    isShowOSError: false,
+    isShowPlatformError: false,
+    os: '',
+    platform: '',
     appName: '',
   };
 
@@ -51,12 +55,18 @@ class PopAddApp extends Component {
     this.setName = this.setName.bind(this);
     this.validateName = this.validateName.bind(this);
     this.setSelect = this.setSelect.bind(this);
+    this.setPlatformSelect = this.setPlatformSelect.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  setPlatformSelect(event){
+    let select = event.target.value;
+    this.props.input({platform:select});
+  }
+
   setSelect(event){
-    let select = parseInt(event.target.value);
-    this.props.input({appType:select});
+    let select = event.target.value;
+    this.props.input({os:select});
   }
 
   setName(event){
@@ -91,7 +101,7 @@ class PopAddApp extends Component {
           <Modal.Title>添加App</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormGroup style={{display: 'inline-block',width: '60%'}} validationState={this.props.isShowNameError ? `error` : null}>
+          <FormGroup style={{display: 'inline-block',width: '40%'}} validationState={this.props.isShowNameError ? `error` : null}>
             <ControlLabel>App名字</ControlLabel>
             <OverlayTrigger trigger={["hover"]} placement="bottom" overlay={popoverFocus}>
             <FormControl
@@ -103,16 +113,29 @@ class PopAddApp extends Component {
             </OverlayTrigger>
             <FormControl.Feedback />
           </FormGroup>
-          <FormGroup style={{display: 'inline-block',width: '30%',paddingLeft: 15}} validationState={this.props.isShowAppTypeError ? `error` : null}>
+          <FormGroup style={{display: 'inline-block',width: '20%',paddingLeft: 15}} validationState={this.props.isShowOSError ? `error` : null}>
+            <ControlLabel>平台</ControlLabel>
+            <FormControl
+              componentClass="select"
+              value={this.props.os}
+              onChange={this.setSelect}
+            >
+              <option value="" >选择平台</option>
+              <option value="iOS" >iOS</option>
+              <option value="Android" >Android</option>
+              <option value="Windows" >Windows</option>
+            </FormControl>
+          </FormGroup>
+          <FormGroup style={{display: 'inline-block',width: '20%',paddingLeft: 15}} validationState={this.props.isShowPlatformError ? `error` : null}>
             <ControlLabel>类型</ControlLabel>
             <FormControl
               componentClass="select"
-              value={this.props.appType}
-              onChange={this.setSelect}
+              value={this.props.platform}
+              onChange={this.setPlatformSelect}
             >
-              <option value="0" >请选择后缀</option>
-              <option value="1" >-ios</option>
-              <option value="2" >-android</option>
+              <option value="" >选择类型</option>
+              <option value="React-Native" >React-Native</option>
+              <option value="Cordova" >Cordova</option>
             </FormControl>
           </FormGroup>
           <FormGroup validationState="error">

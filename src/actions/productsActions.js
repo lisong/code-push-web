@@ -57,10 +57,10 @@ export function receiveAddProducts(data) {
   }
 }
 
-export function addProducts(appName) {
+export function addProducts(appName, os, platform) {
   return (dispatch) => {
     dispatch(requestAddProducts());
-    return restApi.addProducts(appName)
+    return restApi.addProducts(appName, os, platform)
     .then(data => {
       checkResponseAuth(dispatch, data);
       if (_.get(data, 'status') !== "OK") {

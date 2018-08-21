@@ -56,7 +56,8 @@ export function addProducts(state = {}, action) {
 
     case POP_ADD_APP_INPUT:
       var appName = _.get(payload, 'appName');
-      var appType = _.get(payload, 'appType');
+      var os = _.get(payload, 'os');
+      var platform = _.get(payload, 'platform');
       if (appName !== undefined) {
         const REGEX = /^\w+$/;
         if (REGEX.test(appName)) {
@@ -65,11 +66,18 @@ export function addProducts(state = {}, action) {
           _.set(payload, 'isShowNameError', true);
         }
       }
-      if (appType !== undefined) {
-        if (_.indexOf([1, 2], parseInt(appType)) !== -1 ) {
-          _.set(payload, 'isShowAppTypeError', false);
+      if (os !== undefined) {
+        if (_.indexOf(['iOS', 'Android', 'Windows'], os) !== -1 ) {
+          _.set(payload, 'isShowOSError', false);
         } else {
-          _.set(payload, 'isShowAppTypeError', true);
+          _.set(payload, 'isShowOSError', true);
+        }
+      }
+      if (platform !== undefined) {
+        if (_.indexOf(['React-Native', 'Cordova'], platform) !== -1 ) {
+          _.set(payload, 'isShowPlatformError', false);
+        } else {
+          _.set(payload, 'isShowPlatformError', true);
         }
       }
       return Object.assign({}, state, payload);

@@ -37,13 +37,9 @@ class PopAddAppContainer extends Component {
         close={actions.closePopAddApp}
         onSubmit={()=>{
           var appName = _.get(addProducts, 'appName');
-          var appType = _.get(addProducts, 'appType');
-          if (appType == 1) {
-            appName = `${appName}-ios`;
-          } else if (appType == 2) {
-            appName = `${appName}-android`;
-          }
-          actions.addProducts(appName);
+          var os = _.get(addProducts, 'os');
+          var platform = _.get(addProducts, 'platform');
+          actions.addProducts(appName, os, platform);
         }}
       />
     );
