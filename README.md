@@ -1,3 +1,5 @@
+# @deprecated
+
 # CodePush Web [source](https://github.com/lisong/code-push-web)
 
 CodePush Web is a [CodePush Server](https://github.com/lisong/code-push-server)'s web client. it's will more friendly then [code-push-cli](https://github.com/Microsoft/code-push)
